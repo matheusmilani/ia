@@ -1,0 +1,12 @@
+boto3
+flask
+flask_cors
+flask_jwt_simple
+flask_restful
+flask_sqlalchemy
+openpyxl
+pandas
+passlib
+psycopg2-binary
+python-dotenv
+pytest

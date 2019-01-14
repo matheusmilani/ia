@@ -1,5 +1,5 @@
 # __AI Teacher__
-<br />
+
 ## Introdução
 
 Essa aplicação com base Flask e ReactJS tem por finalidade mostrar um novo meio de interação com o aprendizado.

@@ -1,0 +1,12 @@
+*, html, body, div, p, span, h1, h2, h3, h4, h5, h6, canvas {
+  margin: 0;
+  padding: 0;
+}
+
+canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: #060115;
+  z-index: -1;
+}

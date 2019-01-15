@@ -2,11 +2,11 @@ import React from 'react'
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 
-import Home from './containers/homeContainer'
+import Login from './containers/login/login'
 
 const App = () => (
   <MuiThemeProvider>
-    <Home />
+    <Login />
   </MuiThemeProvider>
 )
 

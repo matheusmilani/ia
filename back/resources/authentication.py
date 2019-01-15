@@ -9,6 +9,12 @@ class AuthenticationResource(Resource):
         email = data['username']
         password = data['password']
 
+        if email == '':
+            return 'Empty username', 401
+
+        if password == '':
+            return 'Empty password', 401
+
         user = User.authenticate(email, password)
 
         if user:

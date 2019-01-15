@@ -6,4 +6,10 @@
   color: white;
   padding: 10px;
   font-size: 20px;
+  transition: background .5s;
+}
+
+.btn-login:hover {
+  cursor: pointer;
+  background-color: #1459d8;
 }

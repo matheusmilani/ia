@@ -3,6 +3,7 @@ from flask import Flask
 from models import initialize_database
 from os import environ
 from resources import initialize_resources
+from schema.schema_file import Schema
 
 # Starting Flask application
 application = Flask(__name__)
@@ -21,6 +22,16 @@ initialize_database(application)
 
 # Starting RESTful endpoints
 initialize_resources(application)
+
+# Run application
+if __name__ == '__main__':
+    print('Initilizing application')
+    application.run()
+
+@application.before_first_request
+def startup():
+    print("Initializing migration DB")
+    Schema.migration()
 
 # Run application
 if __name__ == '__main__':

@@ -1,13 +1,9 @@
 import React from 'react'
 
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
-
-import Login from './containers/login/login'
+import Root from './view/public/root'
 
 const App = () => (
-  <MuiThemeProvider>
-    <Login />
-  </MuiThemeProvider>
+  <Root />
 )
 
 export default App

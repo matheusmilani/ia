@@ -1,0 +1,10 @@
+.card {
+  margin-top: 30vh;
+  box-shadow: 0 0 20px 5px pink;
+}
+
+.card-title {
+  font-size: 35px;
+  margin-bottom: 15px;
+  font-weight: 900;
+}

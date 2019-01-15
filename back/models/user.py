@@ -25,10 +25,10 @@ class User(db.Model):
     @staticmethod
     def authenticate(email, password):
         user = User.query.filter_by(email=email).first()
-
         if user:
             try:
                 if sha256.verify(password, user.password):
+                    print(user)
                     return user
             except:
                 return 'User not found'
@@ -59,6 +59,6 @@ class User(db.Model):
         if self.password and self.password.startswith('$pbkdf2-sha256$') == False:
             self.password = sha256.hash(self.password)
         self.timestamp = datetime.now()
-        
+
         db.session.merge(self)
         db.session.commit()

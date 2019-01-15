@@ -13,7 +13,11 @@ def initialize_resources(application):
     CORS(application, supports_credentials=True)
 
     # Endpoints
-    # from resources.account_lookup import AccountLookupResource
+    from resources.home import HomeResource
+    from resources.authentication import AuthenticationResource
+
+    api.add_resource(HomeResource, '/')
+    api.add_resource(AuthenticationResource, '/api/authentication')
 
     def handle_error(e):
         code = 500

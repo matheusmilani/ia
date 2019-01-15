@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { Redirect } from 'react-router-dom'
+
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 
@@ -31,7 +33,11 @@ class Home extends Component {
     this.callApi()
     axios.post('http://127.0.0.1:5000/api/authentication', ({username: this.state.user, password: this.state.password} ))
       .then(
-        (response) => {  this.success() },
+        (response) => {
+          sessionStorage.setItem("userLoggedIn", response);
+          this.success()
+          window.location.replace("/student")
+        },
         (error) => { this.error() }
       )
   }

@@ -19,13 +19,13 @@
   display: none
 }
 
-#register-trigger {
+#login-active {
   color: white;
   margin: 25px 0;
   text-align: center;
 }
 
-#register-trigger:hover {
+#login-active:hover {
   cursor: pointer;
   text-decoration: underline;
 }

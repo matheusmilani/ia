@@ -3,15 +3,15 @@ from flask_jwt_simple import create_jwt
 from flask_restful import Resource
 from models.user import User
 
-class AuthenticationResource(Resource):
+class UserResource(Resource):
     def post(self):
         data = request.get_json()
         email = data['email']
         password = data['password']
-        roles = data['role']
+        role = data['role']
         name = data['name']
         social_name = data['social_name']
-
+        
         new_user = User()
         new_user.email = email
         new_user.name = name

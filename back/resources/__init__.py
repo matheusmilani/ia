@@ -15,9 +15,11 @@ def initialize_resources(application):
     # Endpoints
     from resources.home import HomeResource
     from resources.authentication import AuthenticationResource
+    from resources.user import UserResource
 
     api.add_resource(HomeResource, '/')
     api.add_resource(AuthenticationResource, '/api/authentication')
+    api.add_resource(UserResource, '/api/user')
 
     def handle_error(e):
         code = 500

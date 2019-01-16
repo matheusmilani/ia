@@ -1,13 +1,13 @@
-.login-form {
+.register-form {
   background: white;
   width: 30vw;
   margin: auto;
-  margin-top: 30vh;
+  margin-top: 20vh;
   border-radius: 5px;
   transition: box-shadow .5s;
 }
 
-.login-form:hover {
+.register-form:hover {
   box-shadow: 0 0 20px 5px pink;
 }
 
@@ -19,13 +19,14 @@
   display: none
 }
 
-#register-trigger {
+
+#login-trigger {
   color: white;
   margin: 25px 0;
   text-align: center;
 }
 
-#register-trigger:hover {
+#login-trigger:hover {
   cursor: pointer;
   text-decoration: underline;
 }

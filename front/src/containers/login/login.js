@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { Redirect } from 'react-router-dom'
 
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
@@ -44,7 +43,7 @@ class Home extends Component {
 
   render() {
     return (
-      <div className="login">
+      <div className={this.props.status + " login"} id="login">
         <form onSubmit={this.handleSubmit}>
           <div className="login-form">
             <Input placeholder="E-mail" id="user" type="text" onChange={this.handleUsernameChange}/>

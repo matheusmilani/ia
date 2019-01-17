@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 
+import { ToastContainer, toast } from 'react-toastify';
 import Input from '../../components/input/input'
 import Button from '../../components/button/button'
 import actions from '../../actions/actions'
@@ -9,8 +10,13 @@ import 'react-toastify/dist/ReactToastify.css';
 
 class Home extends Component {
 
-  actionLogin = (user, pass) => actions.login(user, pass)
-  
+  notify = () => toast("Fazendo login...");
+
+  actionLogin = (user, pass) => {
+    this.notify()
+    actions.login(user, pass)
+  }
+
   state = {
     user: '',
     password: ''
@@ -33,6 +39,7 @@ class Home extends Component {
             <Button type="submit" text="Login"/>
           </div>
         </form>
+        <ToastContainer />
       </div>
     )
   }

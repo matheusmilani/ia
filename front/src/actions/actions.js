@@ -1,7 +1,5 @@
 import axios from 'axios';
-
 const defaultUrl = 'http://localhost:5000'
-
 const actions = {
   register: function(email, name, social_name, role, password){
     axios.post(defaultUrl + '/api/user', (

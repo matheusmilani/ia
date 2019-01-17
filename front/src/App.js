@@ -3,7 +3,7 @@ import React from 'react'
 import Root from './view/public/root'
 
 const App = () => (
-  <Root />
+    <Root />
 )
 
 export default App

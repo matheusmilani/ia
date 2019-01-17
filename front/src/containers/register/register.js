@@ -1,15 +1,23 @@
 import React, { Component } from 'react'
 
+import { ToastContainer, toast } from 'react-toastify';
 import Input from '../../components/input/input'
 import Select from '../../components/select/select'
 import Button from '../../components/button/button'
 import actions from '../../actions/actions'
 
 import './register.css'
+import 'react-toastify/dist/ReactToastify.css';
 
 class Home extends Component {
+  notify = () => toast("Criando registro...");
+  error = () => toast.error("Dados incorretos, por favor, revise-os...");
 
-  actionRegister = (email, name, social_name, role, password) => actions.register(email, name, social_name, role, password)
+  actionRegister = (email, name, social_name, role, password) => {
+    this.notify()
+    var a = actions.register(email, name, social_name, role, password)
+    if(a == '') { this.error() }
+  }
 
   state = {
     email: '',

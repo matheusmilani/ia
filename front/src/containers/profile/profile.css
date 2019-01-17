@@ -1,0 +1,21 @@
+.profile-form {
+  background: white;
+  width: 30vw;
+  margin: auto;
+  margin-top: 25vh;
+  margin-bottom: 25vh;
+  border-radius: 5px;
+  transition: box-shadow .5s;
+}
+
+.profile-form:hover {
+  box-shadow: 0 0 20px 5px pink;
+}
+
+.active {
+  display: block
+}
+
+.non-active {
+  display: none
+}

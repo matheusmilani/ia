@@ -3,6 +3,24 @@ nav {
   background: none;
   padding: 20px;
   border: none;
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  right: 0;
+  z-index: 9999;
+}
+
+nav.active {
+  background: black;
+  box-shadow: 0 0 20px 2 black;
+}
+
+nav ul {
+  list-style: none;
+}
+
+nav ul li {
+  display: inline-block;
 }
 
 nav ul li span {
@@ -21,7 +39,7 @@ nav ul li span:hover {
   cursor: pointer;
 }
 
-nav ul li span:last-child:hover {
+nav ul li:last-child:hover span {
   color: red;
   border: 2px solid red;
   padding: 5px 15px;

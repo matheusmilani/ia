@@ -30,6 +30,20 @@ const actions = {
   logout: function(){
     sessionStorage.removeItem('userLoggedIn');
     window.location.replace('/')
+  },
+
+  linkTo: function(role, path){
+    window.location.replace('/'+role+'/'+path)
+  },
+
+  getUser: function(userId){
+    axios.get(defaultUrl + '/api/user?id=' + userId)
+      .then(
+        (response) => {
+          return response.data;
+        },
+        (error) => { return '' }
+      )
   }
 }
 

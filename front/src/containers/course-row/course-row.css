@@ -1,0 +1,26 @@
+.course-row {
+  padding: 25px;
+  background: #fff;
+  color: #000
+}
+
+.course-row .title {
+  line-height: 1.4em;
+  margin-top: 50px;
+  margin-bottom: 25px;
+  width: 500px;
+  font-weight: 900;
+  border-left: 3px solid #0ac9f8;
+  padding-left: 10px;
+}
+
+.course-row > .title:after {
+  content: '';
+  height: 3px;
+  width: 600px;
+  background: -webkit-linear-gradient(left,#01d1fe,#ff005c);
+  background: linear-gradient(to right,#01d1fe,#ff005c);
+  display: block;
+  position: absolute;
+  left: 25px;
+}

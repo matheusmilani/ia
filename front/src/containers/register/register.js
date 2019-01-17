@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import Input from '../../components/input/input'
 import Select from '../../components/select/select'
 import Button from '../../components/button/button'
@@ -16,7 +16,7 @@ class Home extends Component {
   actionRegister = (email, name, social_name, role, password) => {
     this.notify()
     var a = actions.register(email, name, social_name, role, password)
-    if(a == '') { this.error() }
+    if(a === '') { this.error() }
   }
 
   state = {

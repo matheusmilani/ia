@@ -4,7 +4,9 @@ import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
 import App from './App'
 import ErrorPage from './view/public/error'
 import StudentHome from './view/student/home'
+import StudentProfile from './view/student/profile'
 import InstructorHome from './view/instructor/home'
+import InstructorProfile from './view/instructor/profile'
 import registerServiceWorker from './registerServiceWorker'
 import './main.css'
 
@@ -18,7 +20,9 @@ ReactDOM.render(
   (<BrowserRouter>
     <Switch>
       <Route path="/" exact render={() => ( isLoggedIn() ? asStudent() ? <StudentHome/> : <InstructorHome/> : <App/> )} />
+      <Route path="/student/profile" render={() => ( isLoggedIn() ? asStudent() ? <StudentProfile/> : <Redirect to="/student"/> : <Redirect to="/"/> )} />
       <Route path="/student" render={() => ( isLoggedIn() ? asStudent() ? <StudentHome/> : <Redirect to="/instructor"/> : <Redirect to="/"/> )} />
+      <Route path="/instructor/profile" render={() => ( isLoggedIn() ? asInstructor() ? <InstructorProfile/> : <Redirect to="/student"/> : <Redirect to="/"/> )} />
       <Route path="/instructor" render={() => ( isLoggedIn() ? asInstructor() ? <InstructorHome/> : <Redirect to="/student"/> : <Redirect to="/"/> )} />
       <Route path="*" component={ErrorPage} />
     </Switch>

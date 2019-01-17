@@ -8,14 +8,18 @@ import InstructorHome from './view/instructor/home'
 import registerServiceWorker from './registerServiceWorker'
 import './main.css'
 
-export function isLoggedIn(){ return sessionStorage.getItem("userLoggedIn") ? true : false }
+const authSession = sessionStorage.getItem("userLoggedIn")
+
+export function isLoggedIn(){ return authSession ? true : false }
+export function asStudent(){ return JSON.parse(authSession).roles[0] === 'student' ? true : false }
+export function asInstructor(){ return JSON.parse(authSession).roles[0] === 'instructor' ? true : false }
 
 ReactDOM.render(
   (<BrowserRouter>
     <Switch>
-      <Route path="/" exact="true" component={App} />
-      <Route path="/student" render={() => ( isLoggedIn() ? <StudentHome/> : <Redirect to="/"/> )} />
-      <Route path="/instructor"  render={() => ( isLoggedIn() ? <InstructorHome/> : <Redirect to="/"/> )}  />
+      <Route path="/" exact render={() => ( isLoggedIn() ? asStudent() ? <StudentHome/> : <InstructorHome/> : <App/> )} />
+      <Route path="/student" render={() => ( isLoggedIn() ? asStudent() ? <StudentHome/> : <Redirect to="/instructor"/> : <Redirect to="/"/> )} />
+      <Route path="/instructor" render={() => ( isLoggedIn() ? asInstructor() ? <InstructorHome/> : <Redirect to="/student"/> : <Redirect to="/"/> )} />
       <Route path="*" component={ErrorPage} />
     </Switch>
   </BrowserRouter>)

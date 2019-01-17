@@ -1,0 +1,28 @@
+nav {
+  text-align: right;
+  background: none;
+  padding: 20px;
+  border: none;
+}
+
+nav ul li span {
+  color: white;
+  text-decoration: none;
+  text-transform: uppercase;
+  padding: 5px 15px;
+  border-radius: 50px;
+  transition: border .5s, color .5s
+}
+
+nav ul li span:hover {
+  color: #00d2ff;
+  border: 2px solid #00d2ff;
+  padding: 5px 15px;
+  cursor: pointer;
+}
+
+nav ul li span:last-child:hover {
+  color: red;
+  border: 2px solid red;
+  padding: 5px 15px;
+}

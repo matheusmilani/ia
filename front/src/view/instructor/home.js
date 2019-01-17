@@ -1,11 +1,10 @@
 import React, { Component } from 'react'
+import Header from '../../containers/header/header'
 
 class Home extends Component {
   render () {
     return (
-      <div>
-        <h1>TESTANDO A HOME DO INSTRUCTOR</h1>
-      </div>
+      <Header user_role="instructor"/>
     )
   }
 }

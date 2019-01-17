@@ -28,7 +28,6 @@ class User(db.Model):
         if user:
             try:
                 if sha256.verify(password, user.password):
-                    print(user)
                     return user
             except:
                 return 'User not found'

@@ -1,22 +1,22 @@
 import React, { Component } from 'react'
+import axios from 'axios';
 
 import { ToastContainer, toast } from 'react-toastify';
 import Input from '../../components/input/input'
 import Button from '../../components/button/button'
-import actions from '../../actions/actions'
 
 import './login.css'
 import 'react-toastify/dist/ReactToastify.css';
 
 class Home extends Component {
-
-  notify = () => toast("Fazendo login...");
-
-  actionLogin = (user, pass) => {
-    this.notify()
-    actions.login(user, pass)
-  }
-
+  toastId = null;
+  notify = () => this.toastId = toast("Fazendo login...");
+  error = () => toast.update(this.toastId,
+                                {
+                                  render: "Dados incorretos. Por favor, revise-os.",
+                                  type: toast.TYPE.ERROR
+                                }
+                              );
   state = {
     user: '',
     password: ''
@@ -26,7 +26,15 @@ class Home extends Component {
   handlePasswordChange = event => this.setState({password: event.target.value})
   handleLogin = event => {
     event.preventDefault();
-    this.actionLogin(this.state.user, this.state.password)
+    this.notify()
+    axios.post(process.env.REACT_APP_API_URL + '/api/authentication', ({username: this.state.user, password: this.state.password} ))
+      .then(
+        (response) => {
+          sessionStorage.setItem("userLoggedIn", JSON.stringify(response.data));
+          window.location.replace("/" + response.data.roles[0])
+        },
+        (error) => { this.error() }
+      )
   }
 
   render() {

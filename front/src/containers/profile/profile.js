@@ -8,9 +8,23 @@ import Button from '../../components/button/button'
 
 import './profile.css'
 import 'react-toastify/dist/ReactToastify.css';
-require('dotenv').config()
 
 class ProfileForm extends Component {
+  toastId = null;
+  notify = () => this.toastId = toast("Salvando dados...");
+  success = () => toast.update(this.toastId,
+                                {
+                                  render: "Dados atualizados com sucesso.",
+                                  type: toast.TYPE.SUCCESS
+                                }
+                              );
+  error = () => toast.update(this.toastId,
+                                {
+                                  render: "Erro ao atualizar dados.",
+                                  type: toast.TYPE.ERROR
+                                }
+                              );
+
   state = {
     id: '',
     email: '',
@@ -22,7 +36,7 @@ class ProfileForm extends Component {
   };
 
   componentDidMount() {
-    axios.get(process.env.REACT_APP_API_URL + '/api/user?id=1')
+    axios.get(process.env.REACT_APP_API_URL + '/api/user?id=' + JSON.parse(sessionStorage.getItem("userLoggedIn")).id,{ headers: { 'Authorization': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1NDc3OTg5MTksImlhdCI6MTU0Nzc3MDExOSwibmJmIjoxNTQ3NzcwMTE5LCJzdWIiOiJzdHVkZW50QHN0dWRlbnQuY29tIiwiaWRfdXNlciI6OSwibmFtZSI6IkVzdHVkYW50ZSIsInJvbGVzIjpbInN0dWRlbnQiXX0.IRjxxNeBk1Tu43vz1yoduDU-WJ4Mo0Ji6q5QfcpOFPE' }})
       .then(
         (response) => {
           this.setState({
@@ -38,8 +52,6 @@ class ProfileForm extends Component {
         }
       )
   }
-
-  notify = () => toast("Salvando perfil...");
 
   handleEmailChange = event => this.setState({email: event.target.value})
   handleNameChange = event => this.setState({name: event.target.value})
@@ -61,10 +73,8 @@ class ProfileForm extends Component {
         role: this.state.role
       }
     )).then(
-        (response) => {
-          alert("Ok")
-        },
-        (error) => { alert("not Ok") }
+        (response) => { this.success() },
+        (error) => { this.error() }
       )
   }
 

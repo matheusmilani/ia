@@ -1,16 +1,20 @@
 from flask import request, jsonify
 from flask_jwt_simple import jwt_required, get_jwt
 from flask_restful import Resource
+from resources import require_roles
 from models.user import User
 
 class UserResource(Resource):
-    # @jwt_required
     def get(self):
+        auth = require_roles(request.headers['Authorization'], ['student', 'instructor'])
+        if auth == False:
+            return {}, 401
+
         id = request.args['id']
         user = User.get(id)
 
         if user is None:
-            return 404
+            return {}, 400
 
         return {
                 'id': user.id,
@@ -25,26 +29,27 @@ class UserResource(Resource):
     def post(self):
         data = request.get_json()
         email = data['email']
-        password = data['password']
+        password = data['password'] if 'password' in data else ''
         role = data['role']
         name = data['name']
         social_name = data['social_name']
 
         if 'id' not in data:
-            new_user = User()
-            new_user.email = email
-            new_user.name = name
-            new_user.social_name = social_name
-            new_user.password = password
-            new_user.roles = [role]
+            user = User()
+            user.email = email
+            user.name = name
+            user.social_name = social_name
+            user.password = password
+            user.roles = [role]
+            user.save()
+            return {}, 200
         else:
-            new_user = User.get(data['id'])
-            new_user.email = email
-            new_user.name = name
-            new_user.social_name = social_name
-            new_user.roles = [role]
+            user = User.get(data['id'])
+            user.email = email
+            user.name = name
+            user.social_name = social_name
+            user.roles = [role]
+            user.save()
+            return {}, 200
 
-        if new_user.save():
-            return 200
-        else:
-            return 400
+        return {}, 400

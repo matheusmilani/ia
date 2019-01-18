@@ -1,23 +1,29 @@
 import React, { Component } from 'react'
+import axios from 'axios';
 
-import { toast } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import Input from '../../components/input/input'
 import Select from '../../components/select/select'
 import Button from '../../components/button/button'
-import actions from '../../actions/actions'
 
 import './register.css'
 import 'react-toastify/dist/ReactToastify.css';
 
 class Home extends Component {
-  notify = () => toast("Criando registro...");
-  error = () => toast.error("Dados incorretos, por favor, revise-os...");
-
-  actionRegister = (email, name, social_name, role, password) => {
-    this.notify()
-    var a = actions.register(email, name, social_name, role, password)
-    if(a === '') { this.error() }
-  }
+  toastId = null;
+  notify = () => this.toastId = toast("Criando registro...");
+  success = () => toast.update(this.toastId,
+                                {
+                                  render: "Usuário salvo com sucesso. Por favor, faça login no sistema.",
+                                  type: toast.TYPE.SUCCESS
+                                }
+                              );
+  error = () => toast.update(this.toastId,
+                                {
+                                  render: "Dados incorretos, por favor, revise-os.",
+                                  type: toast.TYPE.ERROR
+                                }
+                              );
 
   state = {
     email: '',
@@ -35,7 +41,17 @@ class Home extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    this.actionRegister(this.state.email, this.state.name, this.state.social_name, this.state.role, this.state.password)
+    this.notify()
+    axios.post(process.env.REACT_APP_API_URL + '/api/user', (
+      {email: this.state.email,
+      name: this.state.name,
+      social_name: this.state.social_name,
+      role: this.state.role,
+      password: this.state.password}
+    )).then(
+        (response) => { this.success() },
+        (error) => { this.error() }
+      )
   }
 
   render() {
@@ -51,6 +67,7 @@ class Home extends Component {
           <Button type="submit" text="Cadastrar"/>
           </div>
         </form>
+        <ToastContainer />
       </div>
     )
   }

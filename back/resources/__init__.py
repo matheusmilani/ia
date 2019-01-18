@@ -6,6 +6,8 @@ from flask_jwt_simple import JWTManager, get_jwt
 from flask_restful import Api
 from functools import wraps
 from werkzeug.exceptions import HTTPException
+from os import environ
+import jwt
 
 def initialize_resources(application):
     api = Api(application)
@@ -50,19 +52,14 @@ def initialize_resources(application):
             'roles': identity['roles']
         }
 
-def require_roles(*roles):
-    def wrapper(f):
-        @wraps(f)
-        def wrapped(*args, **kwargs):
-            jwt = get_jwt()
-
-            if 'roles' in jwt:
-                if any(role in jwt['roles'] for role in roles):
-                    return f(*args, **kwargs)
-
-            return {'message':'Unauthorized'}, 403
-        return wrapped
-    return wrapper
+def require_roles(token, permitted_roles):
+    jwt_decoded = jwt.decode(token, environ['JWT_SECRET_KEY'])
+    if 'roles' in jwt_decoded:
+        if any(role in permitted_roles for role in jwt_decoded['roles']):
+            return True
+        else:
+            return False
+    return False
 
 class HttpCode(IntEnum):
     Ok = 200

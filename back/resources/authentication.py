@@ -16,8 +16,8 @@ class AuthenticationResource(Resource):
             return 'Empty password', 401
 
         user = User.authenticate(email, password)
-
-        if user:
+        
+        if user is not None:
             access_token = create_jwt({
                 'id_user': user.id,
                 'email': user.email,

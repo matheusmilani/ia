@@ -16,6 +16,7 @@ export function isLoggedIn(){ return authSession ? true : false }
 export function asStudent(){ return JSON.parse(authSession).roles[0] === 'student' ? true : false }
 export function asInstructor(){ return JSON.parse(authSession).roles[0] === 'instructor' ? true : false }
 
+require('dotenv').config()
 ReactDOM.render(
   (<BrowserRouter>
     <Switch>

@@ -94,9 +94,9 @@ def test_authenticate_correct_user():
 
 def test_no_authenticate_wrong_user():
     authenticate = User.authenticate('wrong_user@wrong_user.com', '1234')
-    assert authenticate == 'User not found'
+    assert authenticate == None
 
 
 def test_no_authenticate_wrong_password():
     authenticate = User.authenticate('new_user@new_user.com', 'wrong-pass')
-    assert authenticate == 'User not found'
+    assert authenticate == None

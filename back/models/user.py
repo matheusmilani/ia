@@ -30,9 +30,9 @@ class User(db.Model):
                 if sha256.verify(password, user.password):
                     return user
             except:
-                return 'User not found'
+                return None
 
-        return 'User not found'
+        return None
 
     @staticmethod
     def get(id):

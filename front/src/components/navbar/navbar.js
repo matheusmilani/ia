@@ -1,11 +1,14 @@
 import React, { Component } from 'react'
-import actions from '../../actions/actions'
 import $ from 'jquery';
 import './navbar.css'
 
 class Navbar extends Component {
-  actionLogout = () => actions.logout()
-  actionProfile = (role) => {actions.linkTo(role, 'profile')}
+  actionLogout = () => this.logout()
+  actionProfile = (role) => {this.linkTo(role, 'profile')}
+
+  linkTo = (role, path) => {
+    window.location.replace('/'+role+'/'+path)
+  }
 
   scroll = () => {
     $(window).scroll(function (event) {
@@ -16,6 +19,11 @@ class Navbar extends Component {
         $("nav").removeClass("active")
       }
     });
+  }
+
+  logout = () => {
+    sessionStorage.removeItem('userLoggedIn');
+    window.location.replace('/')
   }
 
   componentDidMount(){
@@ -34,7 +42,7 @@ class Navbar extends Component {
                 <span>Cursos</span>
               </li>
               <li>
-                <span onClick={() => {this.actionLogout()}}>Sair</span>
+                <span onClick={() => {this.logout()}}>Sair</span>
               </li>
             </ul>
           </nav>

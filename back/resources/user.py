@@ -1,5 +1,4 @@
 from flask import request, jsonify
-from flask_jwt_simple import jwt_required, get_jwt
 from flask_restful import Resource
 from resources import require_roles
 from models.user import User
@@ -7,7 +6,7 @@ from models.user import User
 class UserResource(Resource):
     def get(self):
         auth = require_roles(request.headers['Authorization'], ['student', 'instructor'])
-        if auth == False:
+        if auth is False:
             return {}, 401
 
         id = request.args['id']
@@ -22,6 +21,8 @@ class UserResource(Resource):
                 'social_name': user.social_name,
                 'email': user.email,
                 'roles': user.roles,
+                'interests': user.interests,
+                'minibio': user.minibio
         }
 
 
@@ -33,6 +34,8 @@ class UserResource(Resource):
         role = data['role']
         name = data['name']
         social_name = data['social_name']
+        interests = data['interests'] if 'interests' in data else ''
+        minibio = data['minibio'] if 'minibio' in data else ''
 
         if 'id' not in data:
             user = User()
@@ -49,6 +52,8 @@ class UserResource(Resource):
             user.name = name
             user.social_name = social_name
             user.roles = [role]
+            user.interests = interests
+            user.minibio = minibio
             user.save()
             return {}, 200
 

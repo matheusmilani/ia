@@ -15,7 +15,7 @@ class User(db.Model):
     profile_photo_url :str = db.Column(db.String(256), nullable=True)
     name :str = db.Column(db.String(128), nullable=True)
     social_name :str = db.Column(db.String(150), nullable=True)
-    ids_interests = db.Column(JSONB, nullable=True)
+    interests = db.Column(JSONB, nullable=True)
     professional_contact :str = db.Column(db.String(50), nullable=True)
     personal_contact :str = db.Column(db.String(50), nullable=True)
     minibio :str = db.Column(db.Text(), nullable=True)

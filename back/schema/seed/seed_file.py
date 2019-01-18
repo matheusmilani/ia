@@ -18,6 +18,7 @@ class Seed:
             student.professional_contact = '12341234'
             student.personal_contact = '12341234'
             student.minibio = 'Fusce eu placerat odio. Aenean convallis pharetra arcu et finibus. Aliquam tempor, enim vel pellentesque efficitur, nunc risus lobortis magna, quis laoreet justo neque a ante. Fusce egestas urna non tincidunt auctor. Curabitur id lobortis tellus. Sed a nisi sed nulla tincidunt sollicitudin eu sit amet eros. Duis eu ex ex. Donec a ullamcorper justo. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; In eleifend libero nisi, vitae vulputate nulla condimentum vitae. Aliquam erat volutpat. Pellentesque orci enim, semper vitae sagittis ut, facilisis at elit. Sed in volutpat dolor. Aenean sodales sem et magna tincidunt efficitur. Praesent justo lorem, dignissim quis tellus in, accumsan tempor risus.'
+            student.interests = [{"label": 'TI', "value": 'TI'},{"label": 'Web', "value": 'Web'},{"label": 'Bla', "value": 'Bla'},{"label": 'Ok', "value": 'Ok'}]
             student.password = '1234'
             student.roles = ['student']
             student.save()
@@ -35,6 +36,7 @@ class Seed:
             instructor.professional_contact = '12341234'
             instructor.personal_contact = '12341234'
             instructor.minibio = 'Fusce eu placerat odio. Aenean convallis pharetra arcu et finibus. Aliquam tempor, enim vel pellentesque efficitur, nunc risus lobortis magna, quis laoreet justo neque a ante. Fusce egestas urna non tincidunt auctor. Curabitur id lobortis tellus. Sed a nisi sed nulla tincidunt sollicitudin eu sit amet eros. Duis eu ex ex. Donec a ullamcorper justo. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; In eleifend libero nisi, vitae vulputate nulla condimentum vitae. Aliquam erat volutpat. Pellentesque orci enim, semper vitae sagittis ut, facilisis at elit. Sed in volutpat dolor. Aenean sodales sem et magna tincidunt efficitur. Praesent justo lorem, dignissim quis tellus in, accumsan tempor risus.'
+            instructor.interests = [{"label": 'TI', "value": 'TI'},{"label": 'Web', "value": 'Web'},{"label": 'Bla', "value": 'Bla'},{"label": 'Ok', "value": 'Ok'}]
             instructor.password = '1234'
             instructor.roles = ['instructor']
             instructor.save()

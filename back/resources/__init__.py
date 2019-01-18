@@ -43,7 +43,7 @@ def initialize_resources(application):
         now = datetime.utcnow()
 
         return {
-            'exp': now + timedelta(hours=8),
+            'exp': now + timedelta(hours=24),
             'iat': now,
             'nbf': now,
             'sub': identity['email'],
@@ -53,7 +53,7 @@ def initialize_resources(application):
         }
 
 def require_roles(token, permitted_roles):
-    jwt_decoded = jwt.decode(token, environ['JWT_SECRET_KEY'])
+    jwt_decoded = jwt.decode(token, environ['JWT_SECRET_KEY'], options={'verify_exp': False})
     if 'roles' in jwt_decoded:
         if any(role in permitted_roles for role in jwt_decoded['roles']):
             return True

@@ -44,7 +44,7 @@ class Home extends Component {
           <div className="login-form">
             <Input placeholder="E-mail" id="user" type="email" onChange={this.handleUsernameChange} required={true} />
             <Input placeholder="Senha" id="password" type="password" onChange={this.handlePasswordChange} required={true} />
-            <Button type="submit" text="Login"/>
+            <Button class="btn-login" type="submit" text="Login"/>
           </div>
         </form>
         <ToastContainer />

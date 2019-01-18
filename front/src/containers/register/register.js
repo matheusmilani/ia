@@ -64,7 +64,7 @@ class Home extends Component {
           <Input placeholder="Nome social" id="user" type="text" onChange={this.handleSocialNameChange} required={true}/>
           <Select label="Perfil" onChange={this.handleRoleChange} required={true}/>
           <Input placeholder="Senha" id="password" type="password" onChange={this.handlePasswordChange} required={true}/>
-          <Button type="submit" text="Cadastrar"/>
+          <Button class="btn-login" type="submit" text="Cadastrar"/>
           </div>
         </form>
         <ToastContainer />

@@ -8,11 +8,13 @@ nav {
   width: 100vw;
   right: 0;
   z-index: 9999;
+  border-bottom-right-radius: 65px;
+  border-bottom-left-radius: 65px;
 }
 
 nav.active {
-  background: black;
-  box-shadow: 0 0 20px 2 black;
+  background: #060115;
+  box-shadow: 0 0 20px 2px #060115;
 }
 
 nav ul {
@@ -43,4 +45,10 @@ nav ul li:last-child:hover span {
   color: red;
   border: 2px solid red;
   padding: 5px 15px;
+}
+
+nav ul li:first-child {
+  position: fixed;
+  top: 25px;
+  left: 15px;
 }

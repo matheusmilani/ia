@@ -1,0 +1,15 @@
+footer:after {
+  content: '';
+  height: 100%;
+  width: 100%;
+  /* background: linear-gradient(to right,#01d1fe,#ff005c); */
+  background: #060115;
+  position: absolute;
+  bottom: 0px;
+  z-index: -1;
+}
+
+footer {
+  position: relative;
+  height: 5vh;
+}

@@ -9,6 +9,7 @@ import InstructorHome from './view/instructor/home'
 import InstructorProfile from './view/instructor/profile'
 import registerServiceWorker from './registerServiceWorker'
 import './main.css'
+import 'bootstrap/dist/css/bootstrap.css';
 
 const authSession = sessionStorage.getItem("userLoggedIn")
 

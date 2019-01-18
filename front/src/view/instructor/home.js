@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import Footer from '../../containers/footer/footer'
 import Header from '../../containers/header/header'
 import CourseRow from '../../containers/course-row/course-row'
 
@@ -10,6 +11,7 @@ class Home extends Component {
       <CourseRow type="my-courses"/>
       <CourseRow type="interests-courses" interest="bla"/>
       <CourseRow type="interests-courses" interest="blabla"/>
+      <Footer/>
       </>
     )
   }

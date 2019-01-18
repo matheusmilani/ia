@@ -62,7 +62,6 @@ class ProfileForm extends Component {
   handleEmailChange = event => this.setState({email: event.target.value})
   handleNameChange = event => this.setState({name: event.target.value})
   handleSocialNameChange = event => this.setState({social_name: event.target.value})
-  handleRoleChange = event => this.setState({role: event.target.value})
   handlePasswordChange = event => this.setState({password: event.target.value})
   handleMinibioChange = event => this.setState({minibio: event.target.value})
   handleInterestsChange = (newValue: any) => { this.setState({interests: newValue}) };
@@ -88,26 +87,64 @@ class ProfileForm extends Component {
 
   render() {
     return (
-      <div className={this.props.status + " profile"} id="profile">
-        <form onSubmit={this.actionUpdate}>
-          <div className="profile-form">
-            <Input placeholder="E-mail" type="email" onChange={this.handleEmailChange} required={true} value={this.state.email}/>
-            <Input placeholder="Nome" type="text" onChange={this.handleNameChange} required={true} value={this.state.name}/>
-            <Input placeholder="Nome social" type="text" onChange={this.handleSocialNameChange} required={true} value={this.state.social_name}/>
-            <TextArea placeholder="Minibio" onChange={this.handleMinibioChange} value={this.state.minibio}/>
-            <Select label="Perfil" onChange={this.handleRoleChange} required={true} value={this.state.role}/>
-            <CreatableSelect
-              className="hide-select"
-              isMulti
-              onChange={this.handleInterestsChange}
-              value={this.state.interests}
-              placeholder="Interesses"
-              components={{ DropdownIndicator: null }}
-              formatCreateLabel={(word) => 'Adicionar ' + word}
-            />
-            <Button type="submit" text="Salvar"/>
+      <div className="container">
+        <div className="row">
+          <div className="col profile-form">
+            <div className="row">
+            <div className="col">
+            <h2 className="title">Meu perfil</h2>
+            </div>
+            </div>
+            <form onSubmit={this.actionUpdate}>
+              <div className="profile-form">
+                <div className="row">
+                  <div className="col-12 col-md-6">
+                    <Input label="Nome" placeholder="Nome" type="text" onChange={this.handleNameChange} required={true} value={this.state.name}/>
+                  </div>
+                  <div className="col-12 col-md-6">
+                    <Input label="Nome Social" placeholder="Nome social" type="text" onChange={this.handleSocialNameChange} required={true} value={this.state.social_name}/>
+                  </div>
+                </div>
+
+                <div className="row">
+                  <div className="col-12 col-md-6">
+                    <Input label="E-mail" placeholder="E-mail" type="email" onChange={this.handleEmailChange} required={true} value={this.state.email}/>
+                  </div>
+                  <div className="col-12 col-md-6">
+                    <Select label="Perfil" required={true} value={this.state.role}/>
+                  </div>
+                </div>
+
+                <div className="row">
+                <div className="col">
+                <TextArea label="Minibio" placeholder="Minibio" onChange={this.handleMinibioChange} value={this.state.minibio}/>
+                </div>
+                </div>
+
+                <div className="row">
+                <div className="col">
+                <label>Interesses</label>
+                <CreatableSelect
+                  className="hide-select"
+                  isMulti
+                  onChange={this.handleInterestsChange}
+                  value={this.state.interests}
+                  placeholder="Interesses"
+                  components={{ DropdownIndicator: null }}
+                  formatCreateLabel={(word) => 'Adicionar ' + word}
+                />
+                </div>
+                </div>
+
+                <div className="row">
+                  <div className="col">
+                  <Button class="btn-profile" type="submit" text="Salvar"/>
+                  </div>
+                </div>
+              </div>
+            </form>
           </div>
-        </form>
+        </div>
         <ToastContainer />
       </div>
     )

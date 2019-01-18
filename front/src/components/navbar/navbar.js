@@ -5,6 +5,7 @@ import './navbar.css'
 class Navbar extends Component {
   actionLogout = () => this.logout()
   actionProfile = (role) => {this.linkTo(role, 'profile')}
+  actionIndex = (role) => {this.linkTo(role, '')}
 
   linkTo = (role, path) => {
     window.location.replace('/'+role+'/'+path)
@@ -13,7 +14,7 @@ class Navbar extends Component {
   scroll = () => {
     $(window).scroll(function (event) {
       var scrollHeight = $(window).scrollTop();
-      if (scrollHeight > 100) {
+      if (scrollHeight > 10) {
         $("nav").addClass("active")
       } else {
         $("nav").removeClass("active")
@@ -36,6 +37,9 @@ class Navbar extends Component {
           <nav>
             <ul>
               <li>
+                <span onClick={() => {this.actionIndex(this.props.role)}}>AI Teacher</span>
+              </li>
+              <li>
                 <span onClick={() => {this.actionProfile(this.props.role)}}>Perfil</span>
               </li>
               <li>
@@ -51,6 +55,9 @@ class Navbar extends Component {
       return (
         <nav>
           <ul>
+            <li>
+              <span onClick={() => {this.actionIndex(this.props.role)}}>AI Teacher</span>
+            </li>
             <li>
               <span onClick={() => {this.actionProfile(this.props.role)}}>Perfil</span>
             </li>

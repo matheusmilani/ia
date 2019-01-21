@@ -7,7 +7,10 @@ import StudentHome from './view/student/home'
 import StudentProfile from './view/student/profile'
 import InstructorHome from './view/instructor/home'
 import InstructorProfile from './view/instructor/profile'
+import InstructorCourses from './view/instructor/courses'
 import registerServiceWorker from './registerServiceWorker'
+import annyang from './Annyang'
+
 import './main.css'
 import 'bootstrap/dist/css/bootstrap.css';
 
@@ -18,12 +21,18 @@ export function asStudent(){ return JSON.parse(authSession).roles[0] === 'studen
 export function asInstructor(){ return JSON.parse(authSession).roles[0] === 'instructor' ? true : false }
 
 require('dotenv').config()
+
+annyang.setLanguage('pt-BR')
+annyang.addCommands();
+annyang.start()
+
 ReactDOM.render(
   (<BrowserRouter>
     <Switch>
       <Route path="/" exact render={() => ( isLoggedIn() ? asStudent() ? <StudentHome/> : <InstructorHome/> : <App/> )} />
       <Route path="/student/profile" render={() => ( isLoggedIn() ? asStudent() ? <StudentProfile/> : <Redirect to="/student"/> : <Redirect to="/"/> )} />
       <Route path="/student" render={() => ( isLoggedIn() ? asStudent() ? <StudentHome/> : <Redirect to="/instructor"/> : <Redirect to="/"/> )} />
+      <Route path="/instructor/courses" render={() => ( isLoggedIn() ? asInstructor() ? <InstructorCourses/> : <Redirect to="/student"/> : <Redirect to="/"/> )} />
       <Route path="/instructor/profile" render={() => ( isLoggedIn() ? asInstructor() ? <InstructorProfile/> : <Redirect to="/student"/> : <Redirect to="/"/> )} />
       <Route path="/instructor" render={() => ( isLoggedIn() ? asInstructor() ? <InstructorHome/> : <Redirect to="/student"/> : <Redirect to="/"/> )} />
       <Route path="*" component={ErrorPage} />

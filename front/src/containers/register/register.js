@@ -62,7 +62,7 @@ class Home extends Component {
           <Input placeholder="E-mail" id="user" type="email" onChange={this.handleEmailChange} required={true}/>
           <Input placeholder="Nome" id="user" type="text" onChange={this.handleNameChange} required={true}/>
           <Input placeholder="Nome social" id="user" type="text" onChange={this.handleSocialNameChange} required={true}/>
-          <Select label="Perfil" onChange={this.handleRoleChange} required={true}/>
+          <Select onChange={this.handleRoleChange} required={true}/>
           <Input placeholder="Senha" id="password" type="password" onChange={this.handlePasswordChange} required={true}/>
           <Button class="btn-login" type="submit" text="Cadastrar"/>
           </div>

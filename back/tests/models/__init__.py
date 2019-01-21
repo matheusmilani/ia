@@ -18,3 +18,5 @@ def create_test_app():
     Schema.migration()
     Seed.user_student()
     Seed.user_instructor()
+    Seed.theme_initial()
+    Seed.course_initial()

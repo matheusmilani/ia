@@ -10,3 +10,4 @@ passlib
 psycopg2-binary
 python-dotenv
 pytest
+sqlalchemy-utils

@@ -4,6 +4,7 @@ import './navbar.css'
 
 class Navbar extends Component {
   actionLogout = () => this.logout()
+  actionCourses = (role) => {this.linkTo(role, 'courses')}
   actionProfile = (role) => {this.linkTo(role, 'profile')}
   actionIndex = (role) => {this.linkTo(role, '')}
 
@@ -62,7 +63,7 @@ class Navbar extends Component {
               <span onClick={() => {this.actionProfile(this.props.role)}}>Perfil</span>
             </li>
             <li>
-              <span>Cursos</span>
+              <span onClick={() => {this.actionCourses(this.props.role)}}>Cursos</span>
             </li>
             <li>
                 <span onClick={() => {this.actionLogout()}}>Sair</span>

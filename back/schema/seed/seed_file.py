@@ -1,5 +1,7 @@
 from models import db
 from models.user import User
+from models.course import Course
+from models.theme import Theme
 
 from sqlalchemy import create_engine
 
@@ -40,3 +42,30 @@ class Seed:
             instructor.password = '1234'
             instructor.roles = ['instructor']
             instructor.save()
+
+    def theme_initial():
+        theme = Theme.query.filter_by(name='web').first()
+
+        if not theme:
+            theme = Theme()
+            theme.name = 'web'
+            theme.save()
+
+    def course_initial():
+        course = Course.query.filter_by(responsible=User.query.filter_by(email='instructor@instructor.com').first()).first()
+
+        if not User.query.filter_by(email='instructor@instructor.com').first():
+            Seed.user_instructor()
+
+        if not Theme.filter_by_name('web'):
+            Seed.theme_initial()
+
+        if not course:
+            course = Course()
+            course.name = 'Curso 01'
+            course.description = 'Fusce eu placerat odio. Aenean convallis pharetra arcu et finibus. Aliquam tempor, enim vel pellentesque efficitur, nunc risus lobortis magna, quis laoreet justo neque a ante. Fusce egestas urna non tincidunt auctor. Curabitur id lobortis tellus. Sed a nisi sed nulla tincidunt sollicitudin eu sit amet eros. Duis eu ex ex. Donec a ullamcorper justo. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; In eleifend libero nisi, vitae vulputate nulla condimentum vitae. Aliquam erat volutpat. Pellentesque orci enim, semper vitae sagittis ut, facilisis at elit. Sed in volutpat dolor. Aenean sodales sem et magna tincidunt efficitur. Praesent justo lorem, dignissim quis tellus in, accumsan tempor risus.'
+            course.responsible = User.filter_by_role('instructor')[0]
+            course.theme = Theme.filter_by_name('web')[0]
+            course.icon_photo_url = 'http://img.img.com'
+            course.hot_keys = ['python', 'web', 'desenvolvimento', 'programação']
+            course.save()

@@ -18,17 +18,13 @@ class Theme(db.Model):
         return Theme.query.filter_by(id=id).first()
 
     @staticmethod
-    def get_by_name(name):
-        return Theme.query.filter_by(name=name).first()
-
-    @staticmethod
     def list():
         return Theme.query.all()
 
     @staticmethod
     def filter_by_name(name):
         name = name.lower()
-        return Theme.query.filter_by(name=name).all()
+        return Theme.query.filter_by(name=name).first()
 
     def save(self):
         self.name = self.name.lower()

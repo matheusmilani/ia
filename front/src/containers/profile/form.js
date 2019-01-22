@@ -8,7 +8,7 @@ import Select from '../../components/select/select'
 import Button from '../../components/button/button'
 import CreatableSelect from 'react-select/lib/Creatable';
 
-import './profile.css'
+import './form.css'
 import 'react-toastify/dist/ReactToastify.css';
 
 class ProfileForm extends Component {
@@ -40,8 +40,26 @@ class ProfileForm extends Component {
 
   initial_interests = []
 
-  componentDidMount() {
-    axios.get(process.env.REACT_APP_API_URL + '/api/user?id=' + JSON.parse(sessionStorage.getItem("userLoggedIn")).id,{ headers: { 'Authorization': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1NDc3OTg5MTksImlhdCI6MTU0Nzc3MDExOSwibmJmIjoxNTQ3NzcwMTE5LCJzdWIiOiJzdHVkZW50QHN0dWRlbnQuY29tIiwiaWRfdXNlciI6OSwibmFtZSI6IkVzdHVkYW50ZSIsInJvbGVzIjpbInN0dWRlbnQiXX0.IRjxxNeBk1Tu43vz1yoduDU-WJ4Mo0Ji6q5QfcpOFPE' }})
+  list_all_hot_keys = () => {
+    axios.get(process.env.REACT_APP_API_URL + '/api/hot_key',{ headers: { 'Authorization':  JSON.parse(sessionStorage.getItem("userLoggedIn")).access_token }})
+      .then(
+        (response) => {
+          this.setState({all_hot_keys: response.data})
+        }
+      )
+  }
+
+  get_hot_key = (name) => {
+    axios.get(process.env.REACT_APP_API_URL + '/api/hot_key?name=' + name,{ headers: { 'Authorization':  JSON.parse(sessionStorage.getItem("userLoggedIn")).access_token }})
+      .then(
+        (response) => {
+          return response.data
+        }
+      )
+  }
+
+  get_user = () => {
+    axios.get(process.env.REACT_APP_API_URL + '/api/user?id=' + JSON.parse(sessionStorage.getItem("userLoggedIn")).id,{ headers: { 'Authorization': JSON.parse(sessionStorage.getItem("userLoggedIn")).access_token }})
       .then(
         (response) => {
           this.initial_interests = response.data.interests
@@ -59,12 +77,37 @@ class ProfileForm extends Component {
       )
   }
 
+  componentDidMount() {
+    this.list_all_hot_keys()
+    this.get_user()
+  }
+
   handleEmailChange = event => this.setState({email: event.target.value})
   handleNameChange = event => this.setState({name: event.target.value})
   handleSocialNameChange = event => this.setState({social_name: event.target.value})
   handlePasswordChange = event => this.setState({password: event.target.value})
   handleMinibioChange = event => this.setState({minibio: event.target.value})
-  handleInterestsChange = (newValue: any) => { this.setState({interests: newValue}) };
+  handleInterestsChange = (newValue) => this.setState({interests: newValue})
+  handleCreate = (inputValue: any) => {
+    var interests = this.state.interests || []
+
+    axios.post(process.env.REACT_APP_API_URL + '/api/hot_key',
+      { name: inputValue },
+      { headers: { 'Authorization': JSON.parse(sessionStorage.getItem("userLoggedIn")).access_token }})
+      .then(
+        (response) => {
+          axios.get(process.env.REACT_APP_API_URL + '/api/hot_key?name=' + inputValue,
+            { headers: { 'Authorization':  JSON.parse(sessionStorage.getItem("userLoggedIn")).access_token }})
+            .then(
+              (response) => {
+                this.list_all_hot_keys()
+                interests.push(response.data)
+                this.setState({interests: interests})
+              }
+            )
+        }
+      )
+    }
 
   actionUpdate = event => {
     event.preventDefault()
@@ -130,8 +173,9 @@ class ProfileForm extends Component {
                   onChange={this.handleInterestsChange}
                   value={this.state.interests}
                   placeholder="Interesses"
-                  components={{ DropdownIndicator: null }}
+                  options={this.state.all_hot_keys}
                   formatCreateLabel={(word) => 'Adicionar ' + word}
+                  onCreateOption={this.handleCreate}
                 />
                 </div>
                 </div>

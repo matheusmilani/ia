@@ -30,3 +30,24 @@
   cursor: pointer;
   background-color: #1459d8;
 }
+
+.btn-new-course {
+  background: #07ccfa;
+  border: none;
+  margin: 10px 0 0 0;
+  color: white;
+  padding: 10px;
+  font-size: 20px;
+  transition: background .5s, border .5s;
+  position: absolute;
+  right: 25px;
+  text-align: center;
+  border-radius: 100px;
+  border: 2px solid #fd025e;
+}
+
+.btn-new-course:hover {
+  cursor: pointer;
+  background-color: #fd025e;
+  border: 2px solid #07ccfa;
+}

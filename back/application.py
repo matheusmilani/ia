@@ -32,6 +32,7 @@ if __name__ == '__main__':
 def startup():
     print("Initializing migration DB")
     Schema.migration()
+    Schema.prepare_db()
 
 # Run application
 if __name__ == '__main__':

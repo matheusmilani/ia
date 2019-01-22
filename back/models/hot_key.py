@@ -5,8 +5,8 @@ from sqlalchemy.dialects.postgresql import ARRAY
 from sqlalchemy import String
 from datetime import datetime
 
-class Theme(db.Model):
-    __tablename__ = 'theme'
+class HotKey(db.Model):
+    __tablename__ = 'hot_key'
 
     id :int = db.Column(db.Integer, primary_key=True)
     name :str = db.Column(db.String(100), nullable=False)
@@ -15,20 +15,24 @@ class Theme(db.Model):
 
     @staticmethod
     def get(id):
-        return Theme.query.filter_by(id=id).first()
+        return HotKey.query.filter_by(id=id).first()
 
     @staticmethod
     def get_by_name(name):
-        return Theme.query.filter_by(name=name).first()
+        return HotKey.query.filter_by(name=name).first()
 
     @staticmethod
     def list():
-        return Theme.query.all()
+        return HotKey.query.all()
+
+    @staticmethod
+    def list_by_ids(ids):
+        return HotKey.query.filter(HotKey.id.in_(ids)).all()
 
     @staticmethod
     def filter_by_name(name):
         name = name.lower()
-        return Theme.query.filter_by(name=name).all()
+        return HotKey.query.filter_by(name=name).all()
 
     def save(self):
         self.name = self.name.lower()

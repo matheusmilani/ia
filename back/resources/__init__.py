@@ -18,10 +18,16 @@ def initialize_resources(application):
     from resources.home import HomeResource
     from resources.authentication import AuthenticationResource
     from resources.user import UserResource
+    from resources.theme import ThemeResource
+    from resources.hot_key import HotKeyResource
+    from resources.course import CourseResource
 
     api.add_resource(HomeResource, '/')
     api.add_resource(AuthenticationResource, '/api/authentication')
     api.add_resource(UserResource, '/api/user')
+    api.add_resource(ThemeResource, '/api/theme')
+    api.add_resource(HotKeyResource, '/api/hot_key')
+    api.add_resource(CourseResource, '/api/course')
 
     def handle_error(e):
         code = 500

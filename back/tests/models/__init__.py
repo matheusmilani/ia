@@ -1,6 +1,5 @@
 from flask import Flask, jsonify
 from flask_sqlalchemy import SQLAlchemy
-from schema.seed.seed_file import Seed
 from schema.schema_file import Schema
 db = SQLAlchemy()
 
@@ -16,7 +15,4 @@ def create_test_app():
     db.reflect()
     db.drop_all()
     Schema.migration()
-    Seed.user_student()
-    Seed.user_instructor()
-    Seed.theme_initial()
-    Seed.course_initial()
+    Schema.prepare_db()

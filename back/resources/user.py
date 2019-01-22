@@ -2,6 +2,7 @@ from flask import request, jsonify
 from flask_restful import Resource
 from resources import require_roles
 from models.user import User
+from models.hot_key import HotKey
 
 class UserResource(Resource):
     def get(self):
@@ -21,7 +22,10 @@ class UserResource(Resource):
                 'social_name': user.social_name,
                 'email': user.email,
                 'roles': user.roles,
-                'interests': user.interests,
+                'interests': list(map(lambda hot_key:{
+                                    'value': hot_key.id,
+                                    'label': hot_key.name
+                                }, HotKey.list_by_ids(user.interests))),
                 'minibio': user.minibio
         }
 
@@ -34,8 +38,14 @@ class UserResource(Resource):
         role = data['role']
         name = data['name']
         social_name = data['social_name']
-        interests = data['interests'] if 'interests' in data else ''
         minibio = data['minibio'] if 'minibio' in data else ''
+        interests_ids = []
+
+        if 'interests' in data:
+            for interest in data['interests']:
+                interests_ids.append(interest['value'])
+        else:
+            interests_ids = ['']
 
         if 'id' not in data:
             user = User()
@@ -52,7 +62,7 @@ class UserResource(Resource):
             user.name = name
             user.social_name = social_name
             user.roles = [role]
-            user.interests = interests
+            user.interests = interests_ids
             user.minibio = minibio
             user.save()
             return {}, 200

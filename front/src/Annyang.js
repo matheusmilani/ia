@@ -33,7 +33,8 @@ class Annyang {
     if (annyang) {
       annyang.addCommands({
         'Acessar página inicial': function() { window.location.replace('/') },
-        'Acessar perfil': function() { window.location.replace(JSON.parse(sessionStorage.getItem("userLoggedIn")).roles[0]+'/profile') },
+        'Acessar perfil': function() { window.location.href = window.location.origin + "/" + JSON.parse(sessionStorage.getItem("userLoggedIn")).roles[0]+'/profile' },
+        'Acessar cursos': function() { window.location.href = window.location.origin + "/" + JSON.parse(sessionStorage.getItem("userLoggedIn")).roles[0]+'/courses' },
         'Sair': function() { sessionStorage.removeItem('userLoggedIn'); window.location.replace('/') }
       })
     }
@@ -53,5 +54,4 @@ class Annyang {
   }
 }
 
-// 7
 export default new Annyang()

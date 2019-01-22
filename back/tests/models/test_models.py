@@ -6,6 +6,7 @@ from . import db
 
 from models.user import User
 from models.theme import Theme
+from models.hot_key import HotKey
 from models.course import Course
 
 @pytest.fixture(scope="session", autouse=True)
@@ -142,6 +143,55 @@ class TestTheme:
         assert len(Theme.list()) == (count_initial + 1)
         assert len(Theme.filter_by_name('new theme')) == 1
 
+class TestHotKey:
+    def test_get_hot_key(self):
+        hot_key = HotKey.get('1')
+        assert hot_key.name == 'python'
+
+    def test_list_hot_key(self):
+        hot_key = HotKey.list()
+        assert len(hot_key) == 3
+
+    def test_list_by_ids_hot_key(self):
+        hot_key = HotKey.list_by_ids([1])
+        assert len(hot_key) == 1
+
+    def test_list_by_ids_hot_key(self):
+        hot_key = HotKey.list_by_ids([1,2])
+        assert len(hot_key) == 2
+
+    def test_list_by_ids_hot_key(self):
+        hot_key = HotKey.list_by_ids([1,2,3])
+        assert len(hot_key) == 3
+
+    def test_filter_by_name_hot_key_camelcase(self):
+        hot_key = HotKey.filter_by_name('Python')
+        assert len(hot_key) == 1
+        assert hot_key[0].name == 'python'
+
+    def test_filter_by_name_hot_key_lowercase(self):
+        hot_key = HotKey.filter_by_name('python')
+        assert len(hot_key) == 1
+        assert hot_key[0].name == 'python'
+
+    def test_filter_by_name_hot_key_uppercase(self):
+        hot_key = HotKey.filter_by_name('PYTHON')
+        assert len(hot_key) == 1
+        assert hot_key[0].name == 'python'
+
+    def test_filter_by_name_hot_key_does_not_exists(self):
+        hot_key = HotKey.filter_by_name('Not exists')
+        assert len(hot_key) == 0
+
+    def test_filter_by_name_hot_key(self):
+        count_initial = len(HotKey.list())
+
+        hot_key = HotKey()
+        hot_key.name = "New HotKey"
+        hot_key.save()
+
+        assert len(HotKey.list()) == (count_initial + 1)
+        assert len(HotKey.filter_by_name('new hotkey')) == 1
 
 class TestCourse:
     def test_get_course(self):

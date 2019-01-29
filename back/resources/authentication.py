@@ -10,13 +10,13 @@ class AuthenticationResource(Resource):
         password = data['password']
 
         if email == '':
-            return 'Empty username', 401
+            return {'Empty username'}, 401
 
         if password == '':
-            return 'Empty password', 401
+            return {'Empty password'}, 401
 
         user = User.authenticate(email, password)
-        
+
         if user is not None:
             access_token = create_jwt({
                 'id_user': user.id,

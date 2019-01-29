@@ -11,7 +11,7 @@ application = Flask(__name__)
 # Loading environment variables from .env file only in development
 if not environ.get('EBS_ENVIRONMENT', None):
     print('Loading environment variables from .env file')
-    load_dotenv('./environments/local.env')
+    load_dotenv('../environments/local.env')
 
 # Loading environment variables into Flask application
 for item in environ.items():

@@ -10,7 +10,7 @@ class ThemeResource(Resource):
             return {}, 401
 
         if 'name' in request.args:
-            theme = Theme.list_by_name(request.args['name'])
+            theme = Theme.filter_by_name(request.args['name'])
 
             if theme is None:
                 return {}, 400

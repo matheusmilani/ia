@@ -15,7 +15,6 @@ class Home extends Component {
       .then(
         (response) => {
           this.setState({all_courses: response.data})
-          console.log(response)
         }
       )
   }

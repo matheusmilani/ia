@@ -1,0 +1,39 @@
+.module-card {
+  display: inline-block;
+  margin: 5px;
+  width: 300px;
+  height: 200px;
+  background: #97559e;
+  transition: .5 ease-in-out;
+}
+
+.module-card span.title-card {
+  color: white;
+  padding: 5px 10px;
+  margin: auto;
+  position: relative;
+  border: 2px solid white;
+  top: 90px;
+  left: 55px;
+}
+
+.module-card:hover {
+  background: #cf277b;
+  cursor: pointer;
+}
+
+.module-card span.module-card-action {
+  position: relative;
+  float: right;
+  right: 0;
+  top: 0;
+  color: white;
+  border: 2px solid transparent;
+  padding: 5px 10px;
+}
+
+.module-card span.module-card-action:hover {
+  color: #cf277b;
+  background: white;
+  border: 2px solid #cf277b;;
+}

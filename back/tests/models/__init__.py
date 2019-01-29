@@ -1,6 +1,8 @@
 from flask import Flask, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from schema.schema_file import Schema
+from dotenv import load_dotenv
+from os import environ
 db = SQLAlchemy()
 
 def create_test_app():
@@ -8,8 +10,9 @@ def create_test_app():
     global app
 
     app = Flask(__name__)
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://global:123abc@localhost:5432/ai_teacher_test'
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    load_dotenv('./environments/test.env')
+    for item in environ.items():
+        app.config[item[0]] = item[1]
     app.app_context().push()
     db.init_app(app)
     db.reflect()

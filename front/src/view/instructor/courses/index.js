@@ -15,7 +15,6 @@ class CoursesIndex extends Component {
       .then(
         (response) => {
           this.setState({all_courses: response.data})
-          console.log(response)
         }
       )
   }
@@ -23,7 +22,7 @@ class CoursesIndex extends Component {
   actionNewCourse = (role) => {this.linkTo(role, '')}
 
   linkTo = (role, path) => {
-    window.location.href = window.location.origin + '/instructor/courses/new'
+    window.location.href = window.location.origin + '/instructor/course/new'
   }
 
   componentDidMount(){
@@ -34,10 +33,10 @@ class CoursesIndex extends Component {
     return (
       <>
       <Header user_role="instructor" current_page="courses"/>
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col">
-            <span class="btn-new-course" onClick={() => {this.actionNewCourse(this.props.role)}}>Novo Curso</span>
+      <div className="container-fluid">
+        <div className="row">
+          <div className="col">
+            <span className="btn-new-course" onClick={() => {this.actionNewCourse(this.props.role)}}>Novo Curso</span>
           </div>
         </div>
       </div>

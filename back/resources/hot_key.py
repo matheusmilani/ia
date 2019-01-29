@@ -10,7 +10,7 @@ class HotKeyResource(Resource):
             return {}, 401
 
         if 'name' in request.args:
-            hot_key = HotKey.list_by_name(request.args['name'])
+            hot_key = HotKey.filter_by_name(request.args['name'])
 
             if hot_key is None:
                 return {}, 400

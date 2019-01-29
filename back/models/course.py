@@ -15,6 +15,7 @@ class Course(db.Model):
     icon_photo_url :str = db.Column(db.String(256), nullable=True)
     id_theme :str = db.Column(db.ForeignKey('theme.id'), nullable=False)
     hot_keys :str = db.Column(JSONB, nullable=True)
+    available :str = db.Column(db.Boolean, nullable=False, default=False)
     timestamp = db.Column(db.DateTime(), nullable=False)
 
     responsible = db.relationship('User')

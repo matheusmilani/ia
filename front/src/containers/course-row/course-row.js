@@ -9,8 +9,8 @@ class CourseRow extends Component {
     return (
       <div className="course-row my-courses">
         <h2 className="title">Todos os cursos</h2>
-        {this.props.data.map(function(course, index){
-          return <CourseCard status="current" title={course.name} image='https://picsum.photos/300/200?image=1024'/>
+        {this.props.data.map(function(course){
+          return <CourseCard status="current" key={course.id} id={course.id} title={course.name} image={course.photo}/>
         })}
       </div>
     )

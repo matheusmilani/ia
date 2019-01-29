@@ -110,28 +110,31 @@ class TestTheme:
         theme = Theme.get('1')
         assert theme.name == 'web'
 
+
     def test_list_theme(self):
         theme = Theme.list()
         assert len(theme) == 1
 
+
     def test_filter_by_name_theme_camelcase(self):
         theme = Theme.filter_by_name('Web')
-        assert len(theme) == 1
-        assert theme[0].name == 'web'
+        assert theme.name == 'web'
+
 
     def test_filter_by_name_theme_lowercase(self):
         theme = Theme.filter_by_name('web')
-        assert len(theme) == 1
-        assert theme[0].name == 'web'
+        assert theme.name == 'web'
+
 
     def test_filter_by_name_theme_uppercase(self):
         theme = Theme.filter_by_name('WEB')
-        assert len(theme) == 1
-        assert theme[0].name == 'web'
+        assert theme.name == 'web'
+
 
     def test_filter_by_name_theme_does_not_exists(self):
         theme = Theme.filter_by_name('Not exists')
-        assert len(theme) == 0
+        assert theme == None
+
 
     def test_filter_by_name_theme(self):
         count_initial = len(Theme.list())
@@ -141,47 +144,54 @@ class TestTheme:
         theme.save()
 
         assert len(Theme.list()) == (count_initial + 1)
-        assert len(Theme.filter_by_name('new theme')) == 1
+        assert Theme.filter_by_name('new theme').name == "new theme"
+
 
 class TestHotKey:
     def test_get_hot_key(self):
         hot_key = HotKey.get('1')
         assert hot_key.name == 'python'
 
+
     def test_list_hot_key(self):
         hot_key = HotKey.list()
         assert len(hot_key) == 3
+
 
     def test_list_by_ids_hot_key(self):
         hot_key = HotKey.list_by_ids([1])
         assert len(hot_key) == 1
 
+
     def test_list_by_ids_hot_key(self):
         hot_key = HotKey.list_by_ids([1,2])
         assert len(hot_key) == 2
+
 
     def test_list_by_ids_hot_key(self):
         hot_key = HotKey.list_by_ids([1,2,3])
         assert len(hot_key) == 3
 
+
     def test_filter_by_name_hot_key_camelcase(self):
         hot_key = HotKey.filter_by_name('Python')
-        assert len(hot_key) == 1
-        assert hot_key[0].name == 'python'
+        assert hot_key.name == 'python'
+
 
     def test_filter_by_name_hot_key_lowercase(self):
         hot_key = HotKey.filter_by_name('python')
-        assert len(hot_key) == 1
-        assert hot_key[0].name == 'python'
+        assert hot_key.name == 'python'
+
 
     def test_filter_by_name_hot_key_uppercase(self):
         hot_key = HotKey.filter_by_name('PYTHON')
-        assert len(hot_key) == 1
-        assert hot_key[0].name == 'python'
+        assert hot_key.name == 'python'
+
 
     def test_filter_by_name_hot_key_does_not_exists(self):
         hot_key = HotKey.filter_by_name('Not exists')
-        assert len(hot_key) == 0
+        assert hot_key == None
+
 
     def test_filter_by_name_hot_key(self):
         count_initial = len(HotKey.list())
@@ -191,16 +201,19 @@ class TestHotKey:
         hot_key.save()
 
         assert len(HotKey.list()) == (count_initial + 1)
-        assert len(HotKey.filter_by_name('new hotkey')) == 1
+        assert HotKey.filter_by_name('new hotkey').name == "new hotkey"
+
 
 class TestCourse:
     def test_get_course(self):
         course = Course.get('1')
         assert course.name == 'Curso 01'
 
+
     def test_list_course(self):
         course = Course.list()
         assert len(course) == 1
+
 
     def test_save_course(self):
         initial_count = len(Course.list())
@@ -209,40 +222,47 @@ class TestCourse:
         course.name = 'Curso 02'
         course.description = 'Fusce eu placerat odio.'
         course.responsible = User.filter_by_role('instructor')[0]
-        course.theme = Theme.filter_by_name('web')[0]
+        course.theme = Theme.filter_by_name('web')
         course.icon_photo_url = 'http://img.img.com'
         course.hot_keys = ['python', 'web', 'desenvolvimento', '01', 'mais', 'outro', 'hot_key']
         course.save()
 
         assert len(Course.list()) == (initial_count + 1)
 
+
     def test_filter_by_responsible_course(self):
         course = Course.filter_by_responsible(User.filter_by_role('instructor')[0])
         assert len(course) == 2
+
 
     def test_filter_by_responsible_course(self):
         course = Course.filter_by_responsible(User.filter_by_role('student')[0])
         assert len(course) == 0
 
+
     def test_filter_by_theme(self):
-        course = Course.filter_by_theme(Theme.filter_by_name('web')[0])
+        course = Course.filter_by_theme(Theme.filter_by_name('web'))
         assert len(course) == 2
+
 
     def test_filter_by_theme(self):
         theme = Theme()
         theme.name = "test"
         theme.save()
 
-        course = Course.filter_by_theme(Theme.filter_by_name('test')[0])
+        course = Course.filter_by_theme(Theme.filter_by_name('test'))
         assert len(course) == 0
+
 
     def test_filter_by_hot_keys(self):
         course = Course.filter_by_hot_keys('python')
         assert len(course) == 2
 
+
     def test_filter_by_hot_keys(self):
         course = Course.filter_by_hot_keys('outro')
         assert len(course) == 1
+
 
     def test_filter_by_hot_keys(self):
         course = Course.filter_by_hot_keys('blergh')

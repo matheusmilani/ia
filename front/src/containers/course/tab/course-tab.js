@@ -114,7 +114,7 @@ class CourseTab extends Component {
   componentDidMount(){
     this.list_all_themes()
     this.list_all_hot_keys()
-    if(this.props.data != undefined) {
+    if(this.props.data !== undefined) {
       this.setState({name: this.props.data.name})
       this.setState({description: this.props.data.description})
       this.setState({image: this.props.data.image})

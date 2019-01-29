@@ -45,7 +45,7 @@ class CourseForm extends Component {
   }
 
   componentWillMount(){
-    if(this.props.data != undefined){
+    if(this.props.data !== undefined){
       this.setState({course: this.props.data})
       this.setState({course_id: this.props.data.id})
     }

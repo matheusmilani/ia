@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom'
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons'
 
 import App from './App'

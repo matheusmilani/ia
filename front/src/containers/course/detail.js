@@ -3,8 +3,6 @@ import axios from 'axios';
 
 import ModuleCard from '../../components/module-card/module-card'
 
-import Modal from 'react-responsive-modal';
-
 import './detail.css'
 import 'react-toastify/dist/ReactToastify.css';
 

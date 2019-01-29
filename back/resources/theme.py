@@ -5,6 +5,8 @@ from models.theme import Theme
 
 class ThemeResource(Resource):
     def get(self):
+        if 'Authorization' not in request.headers:
+            return {}, 401
         auth = require_roles(request.headers['Authorization'], ['student', 'instructor'])
         if auth is False:
             return {}, 401

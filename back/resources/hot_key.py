@@ -5,6 +5,8 @@ from models.hot_key import HotKey
 
 class HotKeyResource(Resource):
     def get(self):
+        if 'Authorization' not in request.headers:
+            return {}, 401
         auth = require_roles(request.headers['Authorization'], ['student', 'instructor'])
         if auth is False:
             return {}, 401
@@ -32,6 +34,8 @@ class HotKeyResource(Resource):
                 }, hot_keys))
 
     def post(self):
+        if 'Authorization' not in request.headers:
+            return {}, 401
         auth = require_roles(request.headers['Authorization'], ['student', 'instructor'])
         if auth is False:
             return {}, 401

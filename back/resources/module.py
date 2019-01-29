@@ -6,6 +6,8 @@ from models.module import Module
 
 class ModuleResource(Resource):
     def get(self):
+        if 'Authorization' not in request.headers:
+            return {}, 401
         auth = require_roles(request.headers['Authorization'], ['student', 'instructor'])
         if auth is False:
             return {}, 401
@@ -28,6 +30,8 @@ class ModuleResource(Resource):
 
 
     def post(self):
+        if 'Authorization' not in request.headers:
+            return {}, 401
         auth = require_roles(request.headers['Authorization'], ['instructor'])
         if auth is False:
             return {}, 401
@@ -62,7 +66,8 @@ class ModuleResource(Resource):
 
     def delete(self):
         data = request.get_json()
-
+        if 'Authorization' not in data['headers']:
+            return {}, 401
         auth = require_roles(data['headers']['Authorization'], ['instructor'])
         if auth is False:
             return {}, 401

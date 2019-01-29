@@ -6,6 +6,8 @@ from models.lesson import Lesson
 
 class LessonResource(Resource):
     def get(self):
+        if 'Authorization' not in request.headers:
+            return {}, 401
         auth = require_roles(request.headers['Authorization'], ['student', 'instructor'])
         if auth is False:
             return {}, 401
@@ -30,6 +32,8 @@ class LessonResource(Resource):
 
 
     def post(self):
+        if 'Authorization' not in request.headers:
+            return {}, 401
         auth = require_roles(request.headers['Authorization'], ['instructor'])
         if auth is False:
             return {}, 401

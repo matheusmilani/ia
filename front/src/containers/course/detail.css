@@ -4,3 +4,11 @@ span.hot-key {
   margin: 5px;
   padding: 5px 10px;
 }
+
+.edit-course-link {
+  float: right;
+}
+
+.edit-course-link:hover {
+  cursor: pointer;
+}

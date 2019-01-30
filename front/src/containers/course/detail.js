@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import axios from 'axios';
 
 import ModuleCard from '../../components/module-card/module-card'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import './detail.css'
 import 'react-toastify/dist/ReactToastify.css';
@@ -36,12 +37,19 @@ class CourseDetail extends Component {
   }
 
   render() {
+    if(this.state.course.responsible === JSON.parse(sessionStorage.getItem("userLoggedIn")).id){
+      var editable = <span className="edit-course-link" onClick={() => { window.location.href = window.location.origin + '/instructor/course/' + this.props.id + '/edit'}}><FontAwesomeIcon icon="edit" /></span>
+    }
+
     return (
       <>
       <div className="container">
         <div className="row">
           <div className="col">
-          <h2 className="title">{this.state.course.name}</h2>
+          <h2 className="title">
+            {this.state.course.name}
+            {editable}
+          </h2>
             {this.state.course.hot_keys.map(function(hot_key){
               return <span key={hot_key.value} className="hot-key">{hot_key.label}</span>
             })}

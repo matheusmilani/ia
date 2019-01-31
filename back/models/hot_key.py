@@ -5,13 +5,13 @@ from sqlalchemy.dialects.postgresql import ARRAY
 from sqlalchemy import String
 from datetime import datetime
 
+
 class HotKey(db.Model):
     __tablename__ = 'hot_key'
 
-    id :int = db.Column(db.Integer, primary_key=True)
-    name :str = db.Column(db.String(100), nullable=False)
+    id: int = db.Column(db.Integer, primary_key=True)
+    name: str = db.Column(db.String(100), nullable=False)
     timestamp = db.Column(db.DateTime(), nullable=False)
-
 
     @staticmethod
     def get(id):

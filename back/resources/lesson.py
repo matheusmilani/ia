@@ -4,11 +4,14 @@ from resources import require_roles
 from models.module import Module
 from models.lesson import Lesson
 
+
 class LessonResource(Resource):
     def get(self):
         if 'Authorization' not in request.headers:
             return {}, 401
-        auth = require_roles(request.headers['Authorization'], ['student', 'instructor'])
+        auth = require_roles(
+            request.headers['Authorization'], [
+                'student', 'instructor'])
         if auth is False:
             return {}, 401
 
@@ -21,15 +24,14 @@ class LessonResource(Resource):
             return {}, 400
 
         return list(map(lambda lesson: {
-                'id': lesson.id,
-                'name': lesson.name,
-                'description': lesson.description,
-                'module_name': lesson.module.name,
-                'module_id': lesson.module.id,
-                'required': lesson.required,
-                'position': lesson.position
-            }, lessons))
-
+            'id': lesson.id,
+            'name': lesson.name,
+            'description': lesson.description,
+            'module_name': lesson.module.name,
+            'module_id': lesson.module.id,
+            'required': lesson.required,
+            'position': lesson.position
+        }, lessons))
 
     def post(self):
         if 'Authorization' not in request.headers:

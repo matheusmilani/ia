@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 from os import environ
 db = SQLAlchemy()
 
+
 def create_test_app():
     global db
     global app

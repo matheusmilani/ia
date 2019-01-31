@@ -5,22 +5,28 @@ from sqlalchemy.dialects.postgresql import ARRAY
 from sqlalchemy import String
 from datetime import datetime
 
+
 class Course(db.Model):
     __tablename__ = 'course'
 
-    id :int = db.Column(db.Integer, primary_key=True)
-    id_responsible :int = db.Column(db.ForeignKey('user.id'), nullable=False)
-    name :str = db.Column(db.String(100), nullable=False)
-    description :str = db.Column(db.Text(), nullable=False)
-    icon_photo_url :str = db.Column(db.String(256), nullable=True)
-    id_theme :str = db.Column(db.ForeignKey('theme.id'), nullable=False)
-    hot_keys :str = db.Column(JSONB, nullable=True)
-    available :str = db.Column(db.Boolean, nullable=False, default=False)
+    id: int = db.Column(db.Integer, primary_key=True)
+    id_responsible: int = db.Column(db.ForeignKey('user.id',
+                                                  onupdate='CASCADE',
+                                                  ondelete='CASCADE'),
+                                    nullable=False)
+    name: str = db.Column(db.String(100), nullable=False)
+    description: str = db.Column(db.Text(), nullable=False)
+    icon_photo_url: str = db.Column(db.String(256), nullable=True)
+    id_theme: str = db.Column(db.ForeignKey('theme.id',
+                                            onupdate='CASCADE',
+                                            ondelete='CASCADE'),
+                              nullable=False)
+    hot_keys: str = db.Column(JSONB, nullable=True)
+    available: str = db.Column(db.Boolean, nullable=False, default=False)
     timestamp = db.Column(db.DateTime(), nullable=False)
 
-    responsible = db.relationship('User')
-    theme = db.relationship('Theme')
-
+    responsible = db.relationship('User', cascade="save-update, merge, delete")
+    theme = db.relationship('Theme', cascade="save-update, merge, delete")
 
     @staticmethod
     def get(id):
@@ -36,7 +42,7 @@ class Course(db.Model):
 
     @staticmethod
     def filter_by_name(name):
-        return Course.query.filter_by(name.like(name)).all()
+        return Course.query.filter_by(name=name).all()
 
     @staticmethod
     def filter_by_theme(theme):

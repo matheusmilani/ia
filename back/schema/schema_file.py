@@ -8,10 +8,12 @@ from models.module import Module
 from models.lesson import Lesson
 from sqlalchemy import create_engine
 
+
 class Schema:
     @staticmethod
     def migration():
-        # engine = create_engine('postgresql://global:123abc@localhost:5432/ai_teacher', echo=False)
+        # engine = create_engine('
+        # postgresql://global:123abc@localhost:5432/ai_teacher', echo=False)
         # Course.__table__.drop(engine)
         # Theme.__table__.drop(engine)
         # Module.__table__.drop(engine)

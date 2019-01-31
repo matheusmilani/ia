@@ -9,6 +9,7 @@ from werkzeug.exceptions import HTTPException
 from os import environ
 import jwt
 
+
 def initialize_resources(application):
     api = Api(application)
     jwt = JWTManager(application)
@@ -42,7 +43,7 @@ def initialize_resources(application):
     @application.after_request
     def nocache_control(response):
         response.headers['Last-Modified'] = datetime.now()
-        response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0, max-age=0'
+        response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0, max-age=0'    # nopep8
         response.headers['Pragma'] = 'no-cache'
         response.headers['Expires'] = '-1'
 
@@ -62,14 +63,18 @@ def initialize_resources(application):
             'roles': identity['roles']
         }
 
+
 def require_roles(token, permitted_roles):
-    jwt_decoded = jwt.decode(token, environ['JWT_SECRET_KEY'], options={'verify_exp': False})
+    jwt_decoded = jwt.decode(
+        token, environ['JWT_SECRET_KEY'], options={
+            'verify_exp': False})
     if 'roles' in jwt_decoded:
         if any(role in permitted_roles for role in jwt_decoded['roles']):
             return True
         else:
             return False
     return False
+
 
 class HttpCode(IntEnum):
     Ok = 200

@@ -5,18 +5,24 @@ from sqlalchemy.dialects.postgresql import ARRAY
 from sqlalchemy import String
 from datetime import datetime
 
+
 class Module(db.Model):
     __tablename__ = 'module'
 
-    id :int = db.Column(db.Integer, primary_key=True)
-    name :str = db.Column(db.String(100), nullable=False)
-    description :str = db.Column(db.Text, nullable=False)
-    required :str = db.Column(db.Boolean, nullable=False, default=True)
-    position :int = db.Column(db.Integer, nullable=False)
-    id_course :int = db.Column(db.ForeignKey('course.id'), nullable=False)
+    id: int = db.Column(db.Integer, primary_key=True)
+    name: str = db.Column(db.String(100), nullable=False)
+    description: str = db.Column(db.Text, nullable=False)
+    required: str = db.Column(db.Boolean, nullable=False, default=True)
+    position: int = db.Column(db.Integer, nullable=False)
+    id_course: int = db.Column(
+        db.ForeignKey(
+            'course.id',
+            onupdate='CASCADE',
+            ondelete='CASCADE'),
+        nullable=False)
     timestamp = db.Column(db.DateTime(), nullable=False)
 
-    course = db.relationship('Course')
+    course = db.relationship('Course', cascade="save-update, merge, delete")
 
     @staticmethod
     def get(id):

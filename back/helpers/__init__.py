@@ -1,6 +1,7 @@
 from sqlalchemy import inspect
 
-def serialize_model(obj, subitens = None):
+
+def serialize_model(obj, subitens=None):
     if obj is None:
         return None
 
@@ -16,5 +17,6 @@ def serialize_model(obj, subitens = None):
 
     return result
 
-def serialize_model_list(itens, subitens = None):
+
+def serialize_model_list(itens, subitens=None):
     return list(map(lambda item: serialize_model(item, subitens), itens))

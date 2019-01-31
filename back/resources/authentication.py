@@ -3,6 +3,7 @@ from flask_jwt_simple import create_jwt
 from flask_restful import Resource
 from models.user import User
 
+
 class AuthenticationResource(Resource):
     def post(self):
         data = request.get_json()
@@ -10,10 +11,10 @@ class AuthenticationResource(Resource):
         password = data['password']
 
         if email == '':
-            return {'Empty username'}, 401
+            return {'message': 'Empty username'}, 401
 
         if password == '':
-            return {'Empty password'}, 401
+            return {'message': 'Empty password'}, 401
 
         user = User.authenticate(email, password)
 

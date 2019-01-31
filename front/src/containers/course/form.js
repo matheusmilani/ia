@@ -4,6 +4,7 @@ import $ from 'jquery';
 import CourseTab from './tab/course-tab'
 import ModuleTab from './tab/module-tab'
 import LessonTab from './tab/lesson-tab'
+import TopicTab from './tab/topic-tab'
 
 import './form.css'
 import 'react-toastify/dist/ReactToastify.css';
@@ -19,29 +20,46 @@ class CourseForm extends Component {
     this.setState({module_id: selectedModule});
     this.showClassTab();
   }
-  handleSelectLesson = (selectedLesson) => {this.setState({lesson_id: selectedLesson})}
+  handleSelectLesson = (selectedLesson) => {
+    this.setState({lesson_id: selectedLesson});
+    this.showTopicTab();
+  }
 
   showCourseTab = () => {
     $("#module-tab").hide()
+    $("#topic-tab").hide()
     $("#lesson-tab").hide()
     $("#course-tab").show()
     this.setState({lesson_active: ''})
+    this.setState({topic_active: ''})
     this.setState({module_active: ''})
   }
 
   showModuleTab =() => {
     $("#course-tab").hide()
+    $("#topic-tab").hide()
     $("#lesson-tab").hide()
     $("#module-tab").show()
     this.setState({lesson_active: ''})
+    this.setState({topic_active: ''})
     this.setState({module_active: 'current'})
   }
 
   showClassTab =() => {
     $("#course-tab").hide()
     $("#module-tab").hide()
+    $("#topic-tab").hide()
     $("#lesson-tab").show()
+    this.setState({topic_active: ''})
     this.setState({lesson_active: 'current'})
+  }
+
+  showTopicTab =() => {
+    $("#course-tab").hide()
+    $("#module-tab").hide()
+    $("#lesson-tab").hide()
+    $("#topic-tab").show()
+    this.setState({topic_active: 'current'})
   }
 
   componentWillMount(){
@@ -54,6 +72,7 @@ class CourseForm extends Component {
   componentDidMount(){
     $("#module-tab").hide()
     $("#lesson-tab").hide()
+    $("#topic-tab").hide()
   }
 
   render() {
@@ -65,16 +84,16 @@ class CourseForm extends Component {
             <div className="bs-vertical-wizard">
               <ul>
                 <li className="current">
-                  <a href="#" onClick={this.showCourseTab}></a>
+                  <span href="#" onClick={this.showCourseTab}></span>
                 </li>
                 <li className={this.state.module_active}>
-                  <a href="#" onClick={this.showModuleTab}></a>
+                  <span href="#" onClick={this.showModuleTab}></span>
                 </li>
                 <li className={this.state.lesson_active}>
-                  <a href="#!"></a>
+                  <span href="#!"></span>
                 </li>
-                <li>
-                  <a href="#!"></a>
+                <li className={this.state.topic_active}>
+                  <span href="#!"></span>
                 </li>
               </ul>
             </div>
@@ -82,7 +101,8 @@ class CourseForm extends Component {
           <div className="col-12 col-md-11 profile-form">
             <CourseTab title={this.props.title} data={this.state.course} identify="course-tab" />
             <ModuleTab course_id={this.state.course_id} identify="module-tab" selectModule={this.handleSelectModule}/>
-            <LessonTab module_id={this.state.module_id} identify="lesson-tab" selectModule={this.handleSelectLesson}/>
+            <LessonTab module_id={this.state.module_id} identify="lesson-tab" selectLesson={this.handleSelectLesson}/>
+            <TopicTab module_id={this.state.module_id} identify="topic-tab"/>
           </div>
         </div>
       </div>

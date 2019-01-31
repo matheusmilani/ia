@@ -3,11 +3,14 @@ from flask_restful import Resource
 from resources import require_roles
 from models.theme import Theme
 
+
 class ThemeResource(Resource):
     def get(self):
         if 'Authorization' not in request.headers:
             return {}, 401
-        auth = require_roles(request.headers['Authorization'], ['student', 'instructor'])
+        auth = require_roles(
+            request.headers['Authorization'], [
+                'student', 'instructor'])
         if auth is False:
             return {}, 401
 
@@ -18,9 +21,9 @@ class ThemeResource(Resource):
                 return {}, 400
 
             return {
-                    'value': theme.id,
-                    'label': theme.name
-                }
+                'value': theme.id,
+                'label': theme.name
+            }
         else:
             # List all Themes
             themes = Theme.list()
@@ -29,9 +32,9 @@ class ThemeResource(Resource):
                 return {}, 400
 
             return list(map(lambda theme: {
-                    'value': theme.id,
-                    'label': theme.name
-                }, themes))
+                'value': theme.id,
+                'label': theme.name
+            }, themes))
 
     def post(self):
         auth = require_roles(request.headers['Authorization'], ['instructor'])

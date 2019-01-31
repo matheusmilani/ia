@@ -8,6 +8,7 @@ from resources import initialize_resources
 import pytest
 db = SQLAlchemy()
 
+
 def create_test_app():
     app = Flask(__name__)
     load_dotenv('./environments/test.env')
@@ -19,6 +20,7 @@ def create_test_app():
     Schema.prepare_db()
     initialize_resources(app)
     return app
+
 
 @pytest.fixture
 def app():

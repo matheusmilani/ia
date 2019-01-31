@@ -53,7 +53,7 @@
     position: relative;
 }
 
-.bs-vertical-wizard ul>li>a {
+.bs-vertical-wizard ul>li>span {
     display: block;
     padding: 10px 10px 10px 40px;
     color: #333c4e;
@@ -63,7 +63,7 @@
     padding: 60px;
 }
 
-.bs-vertical-wizard ul>li>a:before {
+.bs-vertical-wizard ul>li>span:before {
     content: '';
     position: absolute;
     width: 1px;
@@ -74,7 +74,7 @@
     z-index: 3;
 }
 
-.bs-vertical-wizard ul>li>a .ico {
+.bs-vertical-wizard ul>li>span .ico {
     pointer-events: none;
     font-size: 14px;
     position: absolute;
@@ -83,7 +83,7 @@
     z-index: 2;
 }
 
-.bs-vertical-wizard ul>li>a:after {
+.bs-vertical-wizard ul>li>span:after {
     content: '';
     position: absolute;
     border: 2px solid #bdc2ce;
@@ -95,7 +95,7 @@
     z-index: 3;
 }
 
-.bs-vertical-wizard ul>li>a .desc {
+.bs-vertical-wizard ul>li>span .desc {
     display: block;
     color: #bdc2ce;
     font-size: 11px;
@@ -104,26 +104,26 @@
     letter-spacing: .8px;
 }
 
-.bs-vertical-wizard ul>li.complete>a:before {
+.bs-vertical-wizard ul>li.complete>span:before {
     background-color: #5cb85c;
     opacity: 1;
     height: calc(100% - 25px);
     bottom: -9px;
 }
 
-.bs-vertical-wizard ul>li.complete>a:after {display:none;}
-.bs-vertical-wizard ul>li.locked>a:after {display:none;}
-.bs-vertical-wizard ul>li:last-child>a:before {display:none;}
+.bs-vertical-wizard ul>li.complete>span:after {display:none;}
+.bs-vertical-wizard ul>li.locked>span:after {display:none;}
+.bs-vertical-wizard ul>li:last-child>span:before {display:none;}
 
-.bs-vertical-wizard ul>li.complete>a .ico {
+.bs-vertical-wizard ul>li.complete>span .ico {
     left: 8px;
 }
 
-.bs-vertical-wizard ul>li>a .ico.ico-green {
+.bs-vertical-wizard ul>li>span .ico.ico-green {
     color: #5cb85c;
 }
 
-.bs-vertical-wizard ul>li>a .ico.ico-muted {
+.bs-vertical-wizard ul>li>span .ico.ico-muted {
     color: #bdc2ce;
 }
 
@@ -131,12 +131,12 @@
     background-color: #fff;
 }
 
-.bs-vertical-wizard ul>li.current>a:before {
+.bs-vertical-wizard ul>li.current>span:before {
     background-color: #eb1169;
     opacity: 1;
 }
 
-.bs-vertical-wizard ul>li.current>a:after {
+.bs-vertical-wizard ul>li.current>span:after {
     border-color: #eb1169;
     background-color: #eb1169;
     opacity: 1;

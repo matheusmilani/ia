@@ -55,3 +55,16 @@ Segue lista de passos necessários para visualizar os testes do sistema.
 
 1. `cd back`
 2. `pytest --color=yes -v --disable-warnings`
+
+<br />
+<br />
+<br />
+
+## Qualidade de escrita
+
+Segue lista de passos necessários para visualizar a qualidde de escrita do sistema de acordo com PEP8.
+
+1. `cd back`
+2. `autopep8 --in-place --recursive .`
+3. `pycodestyle --show-source --show-pep8 ./`
+4. `pycodestyle --statistics -qq ./`

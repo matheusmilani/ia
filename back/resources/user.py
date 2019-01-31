@@ -4,12 +4,15 @@ from resources import require_roles
 from models.user import User
 from models.hot_key import HotKey
 
+
 class UserResource(Resource):
     def get(self):
         if 'Authorization' not in request.headers:
             return {}, 401
 
-        auth = require_roles(request.headers['Authorization'], ['student', 'instructor'])
+        auth = require_roles(
+            request.headers['Authorization'], [
+                'student', 'instructor'])
         if auth is False:
             return {}, 401
 
@@ -20,19 +23,17 @@ class UserResource(Resource):
             return {}, 400
 
         return {
-                'id': user.id,
-                'name': user.name,
-                'social_name': user.social_name,
-                'email': user.email,
-                'roles': user.roles,
-                'interests': list(map(lambda hot_key:{
-                                    'value': hot_key.id,
-                                    'label': hot_key.name
-                                }, HotKey.list_by_ids(user.interests))),
-                'minibio': user.minibio
+            'id': user.id,
+            'name': user.name,
+            'social_name': user.social_name,
+            'email': user.email,
+            'roles': user.roles,
+            'interests': list(map(lambda hot_key: {
+                'value': hot_key.id,
+                'label': hot_key.name
+            }, HotKey.list_by_ids(user.interests))),
+            'minibio': user.minibio
         }
-
-
 
     def post(self):
         data = request.get_json()

@@ -8,12 +8,13 @@ from models.lesson import Lesson
 
 from sqlalchemy import create_engine
 
+
 class Seed:
     @staticmethod
     def user_student():
         student = User.query.filter_by(email='student@student.com').first()
 
-        if not HotKey.filter_by_name('ruby') :
+        if not HotKey.filter_by_name('ruby'):
             Seed.hot_keys_initial()
 
         if not student:
@@ -25,16 +26,19 @@ class Seed:
             student.password = '1234'
             student.professional_contact = '12341234'
             student.personal_contact = '12341234'
-            student.minibio = 'Fusce eu placerat odio. Aenean convallis pharetra arcu et finibus. Aliquam tempor, enim vel pellentesque efficitur, nunc risus lobortis magna, quis laoreet justo neque a ante. Fusce egestas urna non tincidunt auctor. Curabitur id lobortis tellus. Sed a nisi sed nulla tincidunt sollicitudin eu sit amet eros. Duis eu ex ex. Donec a ullamcorper justo. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; In eleifend libero nisi, vitae vulputate nulla condimentum vitae. Aliquam erat volutpat. Pellentesque orci enim, semper vitae sagittis ut, facilisis at elit. Sed in volutpat dolor. Aenean sodales sem et magna tincidunt efficitur. Praesent justo lorem, dignissim quis tellus in, accumsan tempor risus.'
-            student.interests = [HotKey.filter_by_name('ruby').id, HotKey.filter_by_name('java').id]
+            student.minibio = 'Fusce eu placerat odio. Aenean convallisetr'
+            student.interests = [
+                HotKey.filter_by_name('ruby').id,
+                HotKey.filter_by_name('java').id]
             student.password = '1234'
             student.roles = ['student']
             student.save()
 
     def user_instructor():
-        instructor = User.query.filter_by(email='instructor@instructor.com').first()
+        instructor = User.query.filter_by(
+            email='instructor@instructor.com').first()
 
-        if not HotKey.filter_by_name('python') :
+        if not HotKey.filter_by_name('python'):
             Seed.hot_keys_initial()
 
         if not instructor:
@@ -46,8 +50,10 @@ class Seed:
             instructor.password = '1234'
             instructor.professional_contact = '12341234'
             instructor.personal_contact = '12341234'
-            instructor.minibio = 'Fusce eu placerat odio. Aenean convallis pharetra arcu et finibus. Aliquam tempor, enim vel pellentesque efficitur, nunc risus lobortis magna, quis laoreet justo neque a ante. Fusce egestas urna non tincidunt auctor. Curabitur id lobortis tellus. Sed a nisi sed nulla tincidunt sollicitudin eu sit amet eros. Duis eu ex ex. Donec a ullamcorper justo. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; In eleifend libero nisi, vitae vulputate nulla condimentum vitae. Aliquam erat volutpat. Pellentesque orci enim, semper vitae sagittis ut, facilisis at elit. Sed in volutpat dolor. Aenean sodales sem et magna tincidunt efficitur. Praesent justo lorem, dignissim quis tellus in, accumsan tempor risus.'
-            instructor.interests = [HotKey.filter_by_name('python').id, HotKey.filter_by_name('java').id]
+            instructor.minibio = 'Fusce eu placerat odio. Aenean convallis'
+            instructor.interests = [
+                HotKey.filter_by_name('python').id,
+                HotKey.filter_by_name('java').id]
             instructor.password = '1234'
             instructor.roles = ['instructor']
             instructor.save()
@@ -83,7 +89,9 @@ class Seed:
             hot_key.save()
 
     def course_initial():
-        course = Course.query.filter_by(responsible=User.query.filter_by(email='instructor@instructor.com').first()).first()
+        course = Course.query.filter_by(
+            responsible=User.query.filter_by(
+                email='instructor@instructor.com').first()).first()
 
         if not User.query.filter_by(email='instructor@instructor.com').first():
             Seed.user_instructor()
@@ -97,7 +105,7 @@ class Seed:
         if not course:
             course = Course()
             course.name = 'Curso 01'
-            course.description = 'Fusce eu placerat odio. Aenean convallis pharetra arcu et finibus. Aliquam tempor, enim vel pellentesque efficitur, nunc risus lobortis magna, quis laoreet justo neque a ante. Fusce egestas urna non tincidunt auctor. Curabitur id lobortis tellus. Sed a nisi sed nulla tincidunt sollicitudin eu sit amet eros. Duis eu ex ex. Donec a ullamcorper justo. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; In eleifend libero nisi, vitae vulputate nulla condimentum vitae. Aliquam erat volutpat. Pellentesque orci enim, semper vitae sagittis ut, facilisis at elit. Sed in volutpat dolor. Aenean sodales sem et magna tincidunt efficitur. Praesent justo lorem, dignissim quis tellus in, accumsan tempor risus.'
+            course.description = 'Fusce eu placerat odio. Aenean convallis'
             course.responsible = User.filter_by_role('instructor')[0]
             course.theme = Theme.filter_by_name('web')
             course.icon_photo_url = 'http://img.img.com'
@@ -106,7 +114,9 @@ class Seed:
 
     def module_initial():
         module = Module.query.filter_by(name="Módulo 01").first()
-        course = Course.query.filter_by(responsible=User.query.filter_by(email='instructor@instructor.com').first()).first()
+        course = Course.query.filter_by(
+            responsible=User.query.filter_by(
+                email='instructor@instructor.com').first()).first()
 
         if not course:
             Seed.course_initial()
@@ -114,10 +124,12 @@ class Seed:
         if not module:
             module = Module()
             module.name = 'Módulo 01'
-            module.description = 'Fusce eu placerat odio. Aenean convallis pharetra arcu et finibus. Aliquam tempor, enim vel pellentesque efficitur, nunc risus lobortis magna, quis laoreet justo neque a ante. Fusce egestas urna non tincidunt auctor. Curabitur id lobortis tellus. Sed a nisi sed nulla tincidunt sollicitudin eu sit amet eros. Duis eu ex ex. Donec a ullamcorper justo. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; In eleifend libero nisi, vitae vulputate nulla condimentum vitae. Aliquam erat volutpat. Pellentesque orci enim, semper vitae sagittis ut, facilisis at elit. Sed in volutpat dolor. Aenean sodales sem et magna tincidunt efficitur. Praesent justo lorem, dignissim quis tellus in, accumsan tempor risus.'
+            module.description = 'Fusce eu placerat odio. Aenean convallis'
             module.required = True
             module.position = 1
-            module.course = Course.query.filter_by(responsible=User.query.filter_by(email='instructor@instructor.com').first()).first()
+            module.course = Course.query.filter_by(
+                responsible=User.query.filter_by(
+                    email='instructor@instructor.com').first()).first()
             module.save()
 
     def lesson_initial():
@@ -130,7 +142,7 @@ class Seed:
         if not lesson:
             lesson = Lesson()
             lesson.name = 'Aula 01'
-            lesson.description = 'Fusce eu placerat odio. Aenean convallis pharetra arcu et finibus. Aliquam tempor, enim vel pellentesque efficitur, nunc risus lobortis magna, quis laoreet justo neque a ante. Fusce egestas urna non tincidunt auctor. Curabitur id lobortis tellus. Sed a nisi sed nulla tincidunt sollicitudin eu sit amet eros. Duis eu ex ex. Donec a ullamcorper justo. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; In eleifend libero nisi, vitae vulputate nulla condimentum vitae. Aliquam erat volutpat. Pellentesque orci enim, semper vitae sagittis ut, facilisis at elit. Sed in volutpat dolor. Aenean sodales sem et magna tincidunt efficitur. Praesent justo lorem, dignissim quis tellus in, accumsan tempor risus.'
+            lesson.description = 'Fusce eu placerat odio. Aenean convallis'
             lesson.required = True
             lesson.position = 1
             lesson.module = Module.query.first()

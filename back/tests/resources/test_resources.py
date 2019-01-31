@@ -5,16 +5,17 @@ from . import create_test_app, app, client
 import pytest
 import json
 
+
 @pytest.fixture(scope="session", autouse=True)
 def before_all():
     create_test_app()
+
 
 class TestEndpoint:
     def test_home_endpoint(self, client):
         res = client.get('/')
 
         assert res.status_code == 200
-
 
     def test_non_exists_endpoint(self, client):
         res = client.get('/usernonblah')
@@ -26,35 +27,105 @@ class TestEndpoint:
 
         assert res.status_code == 401
 
+    def test_wrong_authentication_none_email(self, client):
+        auth = client.post(
+            '/api/authentication',
+            json={
+                'username': '',
+                'password': '1234'})
+        access_decode = json.loads(auth.data.decode())
+
+        assert access_decode['message'] == 'Empty username'
+        assert auth.status_code == 401
+
+    def test_wrong_authentication_none_password(self, client):
+        auth = client.post(
+            '/api/authentication',
+            json={
+                'username': 'asd',
+                'password': ''})
+        access_decode = json.loads(auth.data.decode())
+
+        assert access_decode['message'] == 'Empty password'
+        assert auth.status_code == 401
+
+    def test_wrong_authentication(self, client):
+        auth = client.post(
+            '/api/authentication',
+            json={
+                'username': 'asd',
+                'password': 'asd'})
+        access_decode = json.loads(auth.data.decode())
+
+        assert access_decode['message'] == 'Invalid credentials'
+        assert auth.status_code == 401
+
 
 class TestStudentEndpoint:
     def test_authentication_as_student(self, client):
-        auth = client.post('/api/authentication', json={'username': 'student@student.com' ,'password':'1234'})
+        auth = client.post(
+            '/api/authentication',
+            json={
+                'username': 'student@student.com',
+                'password': '1234'})
         access_decode = json.loads(auth.data.decode())
 
         assert access_decode['id'] == 1
         assert access_decode['roles'] == ['student']
         assert access_decode['name'] == 'Estudante'
 
-
     def test_user_endpoint_with_authorization_as_student(self, client):
-        auth = client.post('/api/authentication', json={'username': 'student@student.com' ,'password':'1234'})
+        auth = client.post(
+            '/api/authentication',
+            json={
+                'username': 'student@student.com',
+                'password': '1234'})
         access_decode = json.loads(auth.data.decode())
-        res = client.get('/api/user?id=1', headers={'Authorization': access_decode['access_token']})
+        res = client.get(
+            '/api/user?id=1',
+            headers={
+                'Authorization': access_decode['access_token']})
 
         assert res.status_code == 200
+
+    def test_user_endpoint_with_authorization_as_student_with_wrong_id(
+            self,
+            client):
+        auth = client.post(
+            '/api/authentication',
+            json={
+                'username': 'student@student.com',
+                'password': '1234'})
+        access_decode = json.loads(auth.data.decode())
+        res = client.get(
+            '/api/user?id=987',
+            headers={
+                'Authorization': access_decode['access_token']})
+
+        assert res.status_code == 400
 
 
 class TestInstructorEndpoint:
     def test_user_endpoint_with_authorization_as_instructor(self, client):
-        auth = client.post('/api/authentication', json={'username': 'instructor@instructor.com' ,'password':'1234'})
+        auth = client.post(
+            '/api/authentication',
+            json={
+                'username': 'instructor@instructor.com',
+                'password': '1234'})
         access_decode = json.loads(auth.data.decode())
-        res = client.get('/api/user?id=2', headers={'Authorization': access_decode['access_token']})
+        res = client.get(
+            '/api/user?id=2',
+            headers={
+                'Authorization': access_decode['access_token']})
 
         assert res.status_code == 200
 
     def test_authentication_as_instructor(self, client):
-        auth = client.post('/api/authentication', json={'username': 'instructor@instructor.com' ,'password':'1234'})
+        auth = client.post(
+            '/api/authentication',
+            json={
+                'username': 'instructor@instructor.com',
+                'password': '1234'})
         access_decode = json.loads(auth.data.decode())
 
         assert access_decode['id'] == 2
